@@ -1,0 +1,7 @@
+.currentUserName {
+  float: right;
+  margin-right: 5px;
+}
+.currentUserNameColor {
+  color: red;
+}

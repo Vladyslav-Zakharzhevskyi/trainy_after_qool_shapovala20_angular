@@ -1,0 +1,27 @@
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #2f7fc7b5;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.app-lang-style {
+  position: absolute;
+  float: right;
+  top: 5px;
+  right: 0;
+  margin-right: 30px;
+  z-index: 16777271;
+}
+
+.app-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

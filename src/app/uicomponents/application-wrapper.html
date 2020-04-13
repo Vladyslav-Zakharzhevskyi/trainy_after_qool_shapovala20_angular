@@ -1,0 +1,35 @@
+<div id='application' data-name='application-wrapper'>
+
+  <div id="application-content" data-name="application-content-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!--common lang dropdown-->
+  <span class="app-lang-style dropdown mt-1">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span class="flag-icon flag-icon-{{translationModule.getLangImgSuffix(translation.currentLang)}}"></span>
+      {{'LANG_TITLE' | translate}}
+    </button>
+    <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item cursor-pointer" (click)="translation.use('en')"><span class="flag-icon flag-icon-us m-2"></span>English</a>
+      <a class="dropdown-item cursor-pointer" (click)="translation.use('ru')"><span class="flag-icon flag-icon-ru m-2"></span>Russian</a>
+    </span>
+  </span>
+
+  <!--footer application part-->
+  <footer class="app-footer bg-dark text-white mt-4">
+    <div class="container-fluid py-3">
+      <div class="row">
+        <div class="col-md-6">
+          <span class="small">Application uses as a part of home-education process.
+            To achieve short term purposes, see rental application.
+            Involving to to both develop part: Front and Back as well.
+          </span>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3 text-right small align-self-end">©2020 <span style="color: red">{{'ADDRESS' | translate}}</span></div>
+      </div>
+    </div>
+  </footer>
+
+</div>
