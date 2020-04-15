@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {Advertisement} from "../_models/advertisement";
 
 // const HOST: string = 'http://localhost:8080';
-const HOST: string = 'http://investigation-env.eba-dspjpvmm.us-east-2.elasticbeanstalk.com';
+const HOST: string = 'https://investigation-backend.us-east-2.elasticbeanstalk.com';
 
 @Injectable({
   providedIn: 'root'

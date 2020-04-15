@@ -45,7 +45,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+# Firebase
+/.firebase
+.firebase/hosting.ZGlzdC9hbmd1bGFyY2xpZW50.cache
