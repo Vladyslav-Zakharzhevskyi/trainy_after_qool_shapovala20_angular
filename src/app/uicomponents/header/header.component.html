@@ -1,29 +1,21 @@
-<div id="application-header" data-name="application-header-wrapper" > <!--*ngIf="userIsLoggedIn"-->
+<div id="application-header" data-name="application-header-wrapper">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">SimpleCRM</a>
+    <i class="fas fa-house-user fa-3x mr-3"></i>
+    <a class="navbar-brand" href="/application/rental">{{"APPLICATION_RENTAL" | translate}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" [routerLink]="'#'" >Accounts <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="'#'"> Create Account </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="'#'">Contacts</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="'#'"> Create Contact </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="'#'">Activities</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="'#'"> Create Activity </a>
+        <li class="nav-item" *ngFor="let header of config.items" [class.active]="isTabActive(header.url, header.queryParams)">
+          <span *ngIf="header.url; then outerPage; else currentPage"></span>
+          <ng-template #outerPage>
+            <a class="nav-link" [routerLink]="header.url" [queryParams]="header.queryParams">{{header.title}}</a>
+          </ng-template>
+          <ng-template #currentPage>
+            <a class="nav-link" [routerLink]="" [queryParams]="header.queryParams">{{header.title}}</a>
+          </ng-template>
         </li>
       </ul>
 

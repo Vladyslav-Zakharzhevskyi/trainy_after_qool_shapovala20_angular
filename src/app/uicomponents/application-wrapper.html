@@ -21,10 +21,8 @@
     <div class="container-fluid py-3">
       <div class="row">
         <div class="col-md-6">
-          <span class="small">Application uses as a part of home-education process.
-            To achieve short term purposes, see rental application.
-            Involving to to both develop part: Front and Back as well.
-          </span>
+          <span class="small" [innerHTML]="'FOOTER_BLOCK' | translate"></span>
+<!--          <span class="small" [innerHTML]>{{'FOOTER_BLOCK' | translate}}</span>-->
         </div>
         <div class="col-md-3"></div>
         <div class="col-md-3 text-right small align-self-end">©2020 <span style="color: red">{{'ADDRESS' | translate}}</span></div>

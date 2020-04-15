@@ -1,5 +1,7 @@
 {
   "APPLICATION_TO_BE_USED_TEXT": "Please select Application to be used internally!",
+  "APPLICATION_RENTAL": "Rental Application",
+  "APPLICATION_RENTAL_DESCRIPTION": "Use this application for Sell or Rental flat.",
   "LANG_TITLE": "Language",
   "LOGIN": "Login",
   "REGISTRATION": "Registration",
@@ -40,10 +42,13 @@
   "advertisement.floor.number" : "Floor Number",
   "advertisement.bargain" : "Is Bargain Available",
   "advertisement.submit" : "Submit",
+  "advertisement.all" : "Dashboard",
+  "advertisement.my" : "My Advertisement",
   "advertisement.add" : "Add Advertisement",
 
   "BTN_NEXT": "Next",
   "BTN_PREV": "Previously",
 
+  "FOOTER_BLOCK": "Application uses as a part of home-education process. To achieve short term purposes. See <a href='applications'><span>Rental Application</span></a>. Involving to to both develop part: Front and Back as well.",
   "ADDRESS": "st. Zoological, 12/15"
 }

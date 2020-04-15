@@ -1,5 +1,7 @@
 {
   "APPLICATION_TO_BE_USED_TEXT": "Выберите приложение для использования!",
+  "APPLICATION_RENTAL": "Аренда-Продажа квартир",
+  "APPLICATION_RENTAL_DESCRIPTION": "Приложение для поиска квартиры. Поволет разместить объявление, найти существующие по параметрам. Эта часть апки позволяет использовать разные типы: Аренда, Продажа.",
   "LANG_TITLE": "Язык",
   "LOGIN": "Вход",
   "DO_LOGIN": "Войти",
@@ -40,12 +42,15 @@
   "advertisement.room.count" : "Кол-во комнат",
   "advertisement.floor.number" : "Этаж",
   "advertisement.bargain" : "Торг доступен",
-  "adv.submit" : "Подтверждение",
+  "advertisement.submit" : "Подтверждение",
+  "advertisement.all" : "Объявления",
+  "advertisement.my" : "Мои Объявления",
   "advertisement.add" : "Добавить объявление",
 
 
   "BTN_NEXT": "Далее",
   "BTN_PREV": "Назад",
 
+  "FOOTER_BLOCK": "Приложение для использования в Домашних условиях. See <a href='applications'><span>Аренда-Продажа квартир</span></a>. На проекте используется Angular 9 и Angular Material.",
   "ADDRESS": "ул. Зоологическая, 12/15"
 }

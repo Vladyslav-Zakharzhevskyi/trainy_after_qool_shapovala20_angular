@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Person} from "../../_models/person";
 import {FormControl, Validators} from "@angular/forms";
-import {ErrorUtilsService} from "../../util/error-utils.service";
+import {ErrorUtilsService} from "../../service/util/error-utils.service";
 import {ApiService} from "../../api/api.service";
 import {SnackBarService} from "../../service/custom/snack-bar.service";
 import {Router} from "@angular/router";

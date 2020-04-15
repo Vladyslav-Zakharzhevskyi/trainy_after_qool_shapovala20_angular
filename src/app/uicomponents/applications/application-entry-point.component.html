@@ -10,18 +10,18 @@
       <div class="container">
         <div class="row d-flex justify-content-center">
 
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 cursor-pointer" (click)="transferToApplication('rental')">
 
             <div class="box-part text-center">
 
               <i class="fas fa-house-user fa-3x"></i>
 
-              <div class="title">
-                <h4>Application for Rental</h4>
+              <div class="title mt-3">
+                <h4>{{"APPLICATION_RENTAL" | translate}}</h4>
               </div>
 
               <div class="text">
-                <span>Uses to put advertisement into, and find out flats for rental, sell or buy purpose.</span>
+                <span>{{"APPLICATION_RENTAL_DESCRIPTION" | translate}}</span>
               </div>
 
               <a href="/application/rental">Go to...</a>

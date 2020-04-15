@@ -1,18 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {Advertisement} from "../../../../../_models/advertisement";
+import {Advertisement} from "../../../../../../_models/advertisement";
 import {FormGroup} from "@angular/forms";
-import {ApiService} from "../../../../../api/api.service";
-import {ErrorUtilsService} from "../../../../../util/error-utils.service";
-import {FormControlUtilService, InputTypeValidation} from "../../../../../util/form-control-util.service";
+import {ApiService} from "../../../../../../api/api.service";
+import {ErrorUtilsService} from "../../../../../../service/util/error-utils.service";
+import {FormControlUtilService, InputTypeValidation} from "../../../../../../service/util/form-control-util.service";
 import {TranslateService} from "@ngx-translate/core";
-import {WithValidators} from "../../../../../_models/interfaces/with-validators";
+import {WithValidatorsInterface} from "../../../../../../_models/interfaces/with-validators.interface";
+import {RequireTranslationListener} from "../../../../../../_models/interfaces/require-translation-listener.interface";
 
 @Component({
   selector: 'advertisement-add-edit',
   templateUrl: './advertisement.component.html',
   styleUrls: ['./advertisement.component.css']
 })
-export class AdvertisementComponent implements OnInit, WithValidators  {
+export class AdvertisementComponent implements OnInit, WithValidatorsInterface, RequireTranslationListener  {
 
   public advertisementModel: Advertisement = new Advertisement();
 
@@ -30,13 +31,18 @@ export class AdvertisementComponent implements OnInit, WithValidators  {
 
   ngOnInit(): void {
     this.addValidation();
-    this.initTranslatableTypes();
+    this.translate();
+    this.listenLangChange();
   }
 
-  initTranslatableTypes(): void {
+  listenLangChange(): void {
     this.translation.onLangChange.subscribe(lang => {
-      this.typesValues = this.typesKeys.map(typeTransKey => this.translation.instant(typeTransKey));
+      this.translate();
     });
+  }
+
+  private translate(): void {
+    this.typesValues = this.typesKeys.map(typeTransKey => this.translation.instant(typeTransKey));
   }
 
 

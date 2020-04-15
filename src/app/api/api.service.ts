@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Person} from "../_models/person";
-import {Observable} from "rxjs";
-import {Advertisement} from "../_models/advertisement";
+import {Person} from '../_models/person';
+import {Observable} from 'rxjs';
+import {Advertisement} from '../_models/advertisement';
+import {environment} from '../../environments/environment';
 
-// const HOST: string = 'http://localhost:8080';
-const HOST: string = 'https://investigation-backend.us-east-2.elasticbeanstalk.com';
+const HOST = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -20,20 +20,20 @@ export class ApiService {
   }
 
 
-  public getApplicationSettings():Observable<any>  {
-    return this.httpClient.get<any>(HOST + "/api/getApplicationSettings", { headers: ApiService.SKIP_INTERCEPTOR_HEADER });
+  public getApplicationSettings(): Observable<any>  {
+    return this.httpClient.get<any>(HOST + '/api/getApplicationSettings', { headers: ApiService.SKIP_INTERCEPTOR_HEADER });
   }
 
   public loginPerson(person: Person): Observable<HttpResponse<Person>>  {
-    let url = HOST + '/api/person/do-login?username=' + person.username + "&password=" + person.password;
-    return this.httpClient.post<Person>(url,{}, { observe: 'response' });
+    const url = HOST + '/api/person/do-login?username=' + person.username + '&password=' + person.password;
+    return this.httpClient.post<Person>(url, {}, { observe: 'response' });
   }
 
-  public getPersons(){
+  public getPersons() {
     return this.httpClient.get(HOST + '/api/person');
   }
 
-  public registerPerson(person: Person) : Observable<Person> {
+  public registerPerson(person: Person): Observable<Person> {
     return this.httpClient.post<Person>(HOST + '/api/person/register', person);
   }
 
@@ -42,7 +42,11 @@ export class ApiService {
   }
 
   public addAdvertisement(item: Advertisement): Observable<any> {
-    return this.httpClient.post(HOST + '/api/rental/addAdvertisement', item);
+    return this.httpClient.post(HOST + '/api/rental/advertisement', item);
+  }
+
+  public getAdvertisements(): Observable<any> {
+    return this.httpClient.get<Advertisement>(HOST + '/api/rental/advertisement');
   }
 
   public logout(): Observable<Object> {

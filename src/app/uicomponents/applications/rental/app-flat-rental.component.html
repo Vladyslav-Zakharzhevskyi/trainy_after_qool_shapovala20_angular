@@ -1,3 +1,22 @@
 <div id="application-rental" data-name="application-rental-content">
-  <advertisement-add-edit></advertisement-add-edit>
+  <span id="header">
+    <application-header [config]="headerConfig"></application-header>
+  </span>
+  <span id="content">
+
+    <div [ngSwitch]="activeTab">
+      <div *ngSwitchCase="'dashboard'">
+        <advertisement-view></advertisement-view>
+      </div>
+      <div *ngSwitchCase="'manage'">
+          <advertisement-add-edit></advertisement-add-edit>
+      </div>
+      <div *ngSwitchCase="'my'">
+          My advertisement block
+      </div>
+      <div *ngSwitchDefault>
+        <advertisement-view></advertisement-view>
+      </div>
+    </div>
+  </span>
 </div>
