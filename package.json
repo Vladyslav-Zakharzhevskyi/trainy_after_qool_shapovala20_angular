@@ -2,16 +2,12 @@
   "name": "angularclient",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "node server.js"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^9.0.6",
+    "@angular/cli": "~9.0.5",
     "@angular/cdk": "github:angular/cdk-builds",
     "@angular/common": "~9.0.5",
     "@angular/compiler": "~9.0.5",
@@ -24,6 +20,8 @@
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
+    "express": "^4.17.1",
+    "path": "^0.12.7",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -33,9 +31,10 @@
     "@angular/cli": "~9.0.5",
     "@angular/compiler-cli": "~9.0.5",
     "@angular/language-service": "~9.0.5",
-    "@types/node": "^12.11.1",
+    "@netlify-builder/deploy": "^3.1.0",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
