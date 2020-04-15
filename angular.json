@@ -123,7 +123,9 @@
         },
         "deploy": {
           "builder": "@angular/fire:deploy",
-          "options": {}
+          "options": {
+            "browserTarget": "angularclient:build --prod"
+          }
         }
       }
     }

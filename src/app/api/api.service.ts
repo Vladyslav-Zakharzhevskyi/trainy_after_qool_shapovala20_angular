@@ -14,7 +14,10 @@ export class ApiService {
 
   private static SKIP_INTERCEPTOR_HEADER = new HttpHeaders().set('InterceptorSkipHeader', 'SKIP_HEADER');
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    console.log(environment.apiUrl);
+    console.log('Is production: ' + environment.production);
+  }
 
 
   public getApplicationSettings():Observable<any>  {
@@ -43,7 +46,7 @@ export class ApiService {
   }
 
   public logout(): Observable<Object> {
-    return this.httpClient.get(HOST + "/logout");
+    return this.httpClient.get(HOST + '/logout');
   }
 
 

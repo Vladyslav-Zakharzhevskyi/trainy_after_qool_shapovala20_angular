@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start_with_local_env": "ng serve --port 5000",
+    "start_with_eb_env": "ng serve --prod --port 5000",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
