@@ -22,8 +22,6 @@ export class RegistrationFormComponent implements OnInit, WithValidatorsInterfac
   @ViewChild('usernameInput')
   username: ElementRef;
 
-  isUsernameAvailable = false;
-
   person = new Person();
 
   formValidation: {
@@ -64,6 +62,11 @@ export class RegistrationFormComponent implements OnInit, WithValidatorsInterfac
       this.snackBarService.showSnackBar('You have registered successfully', 'info', 4000);
       this.joinComponent.selectedTab(0);
     });
+  }
+
+  isFormValid() {
+    return Object.keys(this.formValidation)
+      .every(key => this.formValidation[key].valid);
   }
 
   getErrorMessage(key: string): string {
