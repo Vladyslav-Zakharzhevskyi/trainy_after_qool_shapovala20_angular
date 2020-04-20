@@ -13,7 +13,5 @@ export class ApplicationEntryPointComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  transferToApplication(appURL: string) {
-    this.route.navigate(['/application/', appURL]);
-  }
+
 }
