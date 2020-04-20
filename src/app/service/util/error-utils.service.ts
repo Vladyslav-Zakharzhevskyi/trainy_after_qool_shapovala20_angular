@@ -11,14 +11,16 @@ export class ErrorUtilsService {
   extractErrorMessage(src: any, key: string): string {
     if (src[key].hasError('required')) {
       return this.translate.instant('error.required');
-    } if (src[key].hasError('minlength')) {
+    } else if (src[key].hasError('minlength')) {
       return this.translate.instant('error.minlength');
-    } if (src[key].hasError('maxlength')) {
+    } else if (src[key].hasError('maxlength')) {
       return this.translate.instant('error.maxlength');
-    } if (src[key].hasError('email')) {
+    } else if (src[key].hasError('email')) {
       return this.translate.instant('error.email');
-    } if (src[key].hasError('pattern')) {
+    } else if (src[key].hasError('pattern')) {
       return this.translate.instant('error.pattern');
+    } else if (src[key].hasError('userNameInUse')) {
+      return this.translate.instant('error.username.duplicate');
     }
   }
 

@@ -9,7 +9,7 @@
       <mat-card-content>
         <mat-form-field class="input-full-width">
           <mat-label>{{'USER_NAME' | translate}}</mat-label>
-          <input matInput name="username" [(ngModel)]="person.username" [formControl]="formValidation.userName" placeholder="{{'user.placeholder.name' | translate}}" required>
+          <input matInput #usernameInput name="username" [(ngModel)]="person.username" [formControl]="formValidation.userName" placeholder="{{'user.placeholder.name' | translate}}" required>
           <mat-error *ngIf="formValidation.userName.invalid">{{getErrorMessage("userName")}}</mat-error>
         </mat-form-field>
 
@@ -39,7 +39,7 @@
 
       </mat-card-content>
 
-      <button mat-stroked-button (click)="doRegistrationForPerson()" color="primary" class="btn-block">{{'DO_REGISTRATION' | translate}}</button>
+      <button mat-stroked-button disabled="{{!isUsernameAvailable}}" (click)="doRegistrationForPerson()" color="primary" class="btn-block">{{'DO_REGISTRATION' | translate}}</button>
 
     </form>
   </mat-card>

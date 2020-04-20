@@ -9,13 +9,13 @@ export class FormControlUtilService {
   constructor() { }
 
   public generate(type: InputTypeValidation): FormControl {
-    if (type == InputTypeValidation.REQUIRED) {
-      return new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]);
-    } else if (type == InputTypeValidation.DEFAULT_STRING_INPUT) {
-      return new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]);
-    } else if (type == InputTypeValidation.DEFAULT_EMAIL) {
+    if (type === InputTypeValidation.REQUIRED) {
+      return new FormControl('', [Validators.required]);
+    } else if (type === InputTypeValidation.DEFAULT_EMAIL) {
       return new FormControl('', [Validators.required, Validators.email]);
-    } else if (type == InputTypeValidation.DEFAULT_DESCRIPTION) {
+    } else if (type === InputTypeValidation.DEFAULT_STRING_INPUT) {
+      return new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]);
+    } else if (type === InputTypeValidation.DEFAULT_DESCRIPTION) {
       return new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]);
     }
   }

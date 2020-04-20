@@ -4,6 +4,8 @@ import {Person} from '../_models/person';
 import {Observable} from 'rxjs';
 import {Advertisement} from '../_models/advertisement';
 import {environment} from '../../environments/environment';
+import {AbstractControl, AsyncValidatorFn} from '@angular/forms';
+import {map} from 'rxjs/operators';
 
 const HOST = environment.apiUrl;
 
@@ -37,6 +39,10 @@ export class ApiService {
     return this.httpClient.post<Person>(HOST + '/api/person/register', person);
   }
 
+  public checkUsernameAvailability(username: string): Observable<object> {
+    return this.httpClient.post(HOST + '/api/person/checkUserNameAvailability/' + username, {});
+  }
+
   public getCurrentPerson(): Observable<Person> {
     return this.httpClient.get<Person>(HOST + '/api/person/current');
   }
@@ -49,7 +55,7 @@ export class ApiService {
     return this.httpClient.get<Advertisement>(HOST + '/api/rental/advertisement');
   }
 
-  public logout(): Observable<Object> {
+  public logout(): Observable<object> {
     return this.httpClient.get(HOST + '/logout');
   }
 

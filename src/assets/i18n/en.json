@@ -30,6 +30,7 @@
   "error.maxlength": "Value is too much. Max length is 20 symbols.",
   "error.email": "Email is not correct.",
   "error.pattern": "Value isn't correct",
+  "error.username.duplicate": "This username already in use. Please select any one else.",
   "advertisement.personal.info" : "Personal Info",
   "advertisement.adv.info" : "Advertisement Info",
   "advertisement.title" : "Title",

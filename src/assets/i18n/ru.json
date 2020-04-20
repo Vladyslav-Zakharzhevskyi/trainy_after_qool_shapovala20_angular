@@ -31,6 +31,7 @@
   "error.maxlength": "Максимальная длина 20 символов",
   "error.email": "Некорректное значение для Email",
   "error.pattern": "Некорректное значение",
+  "error.username.duplicate": "Имя пользователя занято. Пожалуйста выберите другое",
   "advertisement.personal.info" : "Информация о продавце",
   "advertisement.adv.info" : "Информация об объекте",
   "advertisement.title" : "Название объявления",
