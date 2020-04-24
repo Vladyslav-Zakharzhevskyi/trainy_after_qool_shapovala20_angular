@@ -30,7 +30,7 @@ export class AuthenticationListenerService {
       if (isUserAuthenticated) {
         this.initLogin();
       } else if (!isUserAuthenticated) {
-        this.initLogout();
+        // this.initLogout();
       }
     });
   }

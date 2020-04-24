@@ -5,6 +5,7 @@ import {RoutingModule} from './routing.module';
 import {AngularMaterialModule} from './config/angular-material-module';
 import {TranslationModule} from './config/translation.module';
 
+import {RegistrationComponent} from './uicomponents/bootstrap-registration/registration.component';
 import {PersonsComponent} from './uicomponents/persons/persons.component';
 import {RegistrationFormComponent} from './uicomponents/register/registration-form.component';
 import {LoginFormComponent} from './uicomponents/login/login-form.component';
@@ -21,6 +22,7 @@ import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
+    RegistrationComponent,
     PersonsComponent,
     RegistrationFormComponent,
     LoginFormComponent,

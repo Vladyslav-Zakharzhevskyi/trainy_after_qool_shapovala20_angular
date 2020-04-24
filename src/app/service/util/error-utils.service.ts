@@ -6,7 +6,7 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class ErrorUtilsService {
 
-  constructor(private translate:  TranslateService) { }
+  constructor(private translate: TranslateService) { }
 
   extractErrorMessage(src: any, key: string): string {
     if (src[key].hasError('required')) {
@@ -21,6 +21,8 @@ export class ErrorUtilsService {
       return this.translate.instant('error.pattern');
     } else if (src[key].hasError('userNameInUse')) {
       return this.translate.instant('error.username.duplicate');
+    } else if (src[key].hasError('passMissMatch')) {
+      return this.translate.instant('error.passwords.miss.match');
     }
   }
 
