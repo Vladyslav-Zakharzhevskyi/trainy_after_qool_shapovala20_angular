@@ -5,6 +5,9 @@ import {ErrorUtilsService} from '../../service/util/error-utils.service';
 import {Person} from '../../_models/person';
 import {Router} from '@angular/router';
 import {timer} from 'rxjs';
+import {ToastrService} from 'ngx-toastr';
+import {TranslateService} from '@ngx-translate/core';
+import {WithValidation} from '../../_models/interfaces/with.validation';
 
 
 @Component({
@@ -12,9 +15,11 @@ import {timer} from 'rxjs';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, WithValidation {
 
   constructor(private apiService: ApiService,
+              private toastr: ToastrService,
+              private translate: TranslateService,
               private router: Router,
               private errorUtils: ErrorUtilsService) {
   }
@@ -36,7 +41,7 @@ export class RegistrationComponent implements OnInit {
     this.addValidation();
   }
 
-  private addValidation() {
+  addValidation() {
     this.formValidation = {
       userName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20),
         this.checkUserNameAvailability.bind(this)]),
@@ -110,11 +115,12 @@ export class RegistrationComponent implements OnInit {
   doRegistrationForPerson(): void {
     this.registrationInProgress = true;
     this.apiService.registerPerson(this.person).subscribe(resp => {
-      const source = timer(1000);
-      source.subscribe(value => {
+    const source = timer(1000);
+    source.subscribe(value => {
+        this.toastr.info(this.translate.instant('email.confirm.successful'), this.translate.instant('email.confirm'),
+          {timeOut: 10000, enableHtml: true});
         this.registrationInProgress = false;
-        this.router.navigate(['/login']).then(r => {
-        });
+        this.router.navigate(['/login']).then(r => {});
       });
     });
   }

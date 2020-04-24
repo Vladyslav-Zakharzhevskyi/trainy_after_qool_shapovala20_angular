@@ -3,7 +3,6 @@ import {ContextService} from "../service/context/context.service";
 import {AuthenticationStateService} from "../service/subjects/authentication-state.service";
 import {ApiService} from "../api/api.service";
 import {Router} from "@angular/router";
-import {SnackBarService} from "../service/custom/snack-bar.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +15,7 @@ export class AuthenticationListenerService {
   constructor(private context: ContextService,
               private authState: AuthenticationStateService,
               private api: ApiService,
-              private router: Router,
-              private snackBarService: SnackBarService) {
+              private router: Router) {
 
     this.userIsLoggedIn = this.context.userIsLoggedIn();
     this.initLoginLogout();
@@ -36,7 +34,7 @@ export class AuthenticationListenerService {
   }
 
   private initLogin() {
-    let loggedInUser = this.context.getCurrentLoggedInUser();
+    const loggedInUser = this.context.getCurrentLoggedInUser();
     this.currentLoggedInUserName = loggedInUser.firstName;
   }
 
@@ -48,7 +46,6 @@ export class AuthenticationListenerService {
 
   public logout(): void {
     this.authState.setState(false);
-    this.snackBarService.showSnackBar("Logon has been successful!", "error", 4000);
   }
 
 }

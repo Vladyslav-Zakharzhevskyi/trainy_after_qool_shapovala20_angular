@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from "@angular/common/http";
-import {ContextService} from "../service/context/context.service";
+import {ContextService} from "./context/context.service";
 
 
 // AoT requires an exported function for factories
