@@ -14,6 +14,7 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
     extendedTimeOut: 5000,
     tapToDismiss: false,
     closeButton: true,
+    progressBar: true
   };
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

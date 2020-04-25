@@ -11,13 +11,17 @@ body {
   cursor: pointer;
 }
 
+.toast-container {
+  z-index: 18006789;
+}
+
 .app-lang-style {
   position: absolute;
   float: right;
   top: 5px;
   right: 0;
   margin-right: 30px;
-  z-index: 16777271;
+  z-index: 16002345;
 }
 
 .app-footer {
