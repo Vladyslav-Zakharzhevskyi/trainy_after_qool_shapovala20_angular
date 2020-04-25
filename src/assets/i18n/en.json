@@ -37,7 +37,7 @@
   "error.username.duplicate": "This username already in use. Please select any one else.",
   "error.passwords.miss.match": "Passwords aren't match",
   "email.confirm": "Confirm your email address",
-  "email.confirm.successful": "You have been registered successful, Please verify your email. <a href='https://gmail.com'><span>Open GMail.</span></a>",
+  "email.confirm.successful": "You have been registered successfully, Please verify your email. <a target='_blank' href='https://gmail.com'><span><b>Open GMail</b></span></a>.",
   "login.successful": "You have been logged in!",
   "BTN_NEXT": "Next",
   "BTN_PREV": "Previously",

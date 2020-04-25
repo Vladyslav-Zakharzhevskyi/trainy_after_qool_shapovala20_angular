@@ -38,7 +38,7 @@
   "error.username.duplicate": "Имя пользователя занято. Пожалуйста выберите другое",
   "error.passwords.miss.match": "Пароли не сопадают",
   "email.confirm": "Подтвердите свой E-Mail адресс",
-  "email.confirm.successful": "Регистрация прошла успешно. Пожалуйста подтвердите свой E-Mail адресс. <a href='https://gmail.com'><span>Открыть почту.</span></a>",
+  "email.confirm.successful": "Регистрация прошла успешно. Пожалуйста подтвердите свой E-Mail адресс. <a target='_blank' href='https://gmail.com'><span><b>Открыть почту</b></span></a>.",
   "login.successful": "Вход выполнен!",
   "BTN_NEXT": "Далее",
   "BTN_PREV": "Назад",
