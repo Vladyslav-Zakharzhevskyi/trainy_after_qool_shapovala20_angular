@@ -1,4 +1,4 @@
-import {UnregisteredClient} from "./unregisteredClient";
+import { UnregisteredClient } from './unregistered-client';
 
 export class Advertisement {
 

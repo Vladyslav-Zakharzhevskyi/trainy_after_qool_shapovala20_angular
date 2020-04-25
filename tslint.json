@@ -1,7 +1,18 @@
 {
-  "extends": "tslint:recommended",
+  "extends": ["tslint:recommended", "angular-tslint-rules"],
   "rules": {
     "no-string-literal": false,
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "require-const-for-all-caps",
+        "allow-leading-underscore"
+      ]
+    },
+    "only-arrow-functions": false,
+    "newline-per-chained-call": false,
+
+    "no-parameter-reassignment": false,
     "array-type": false,
     "arrow-parens": false,
     "deprecation": {
@@ -10,6 +21,7 @@
     "component-class-suffix": true,
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
+
     "directive-selector": [
       true,
       "attribute",

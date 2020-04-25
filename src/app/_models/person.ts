@@ -6,6 +6,4 @@ export class Person {
   public email: string;
   public password: string;
 
-  constructor() {}
-
 }

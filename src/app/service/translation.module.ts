@@ -1,12 +1,12 @@
-import {NgModule} from "@angular/core";
-import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClient} from "@angular/common/http";
-import {ContextService} from "./context/context.service";
+import { NgModule } from '@angular/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+import { ContextService } from './context/context.service';
 
 
 // AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
 
@@ -27,16 +27,16 @@ export function HttpLoaderFactory(http: HttpClient) {
 })
 export class TranslationModule {
 
-  /*Default language*/
+  // Default language
   private startupLanguage = 'en';
 
   private languages: Language[] = [
-    new Language("en", "us"),
-    new Language("ru", "ru")
+    new Language('en', 'us'),
+    new Language('ru', 'ru')
   ];
 
   constructor(public translate: TranslateService, private context: ContextService) {
-    let langs: any[] = [];
+    const langs: any[] = [];
     langs.push(this.languages.map(value => value.lang)) ;
 
     translate.addLangs(langs);
@@ -54,13 +54,13 @@ export class TranslationModule {
 
   private subscribe(): void {
     this.translate.onLangChange.subscribe(langContext => {
-        this.context.setUsedLang(langContext.lang)
+        this.context.setUsedLang(langContext.lang);
       }
     );
   }
 
   public getLangImgSuffix(lang: string): string {
-    return this.languages.find(language => language.lang == lang).iconPrefix;
+    return this.languages.find(language => language.lang === lang).iconPrefix;
   }
 
 }
@@ -75,11 +75,11 @@ class Language {
   }
 
 
-  get lang() {
+  get lang(): any {
     return this._lang;
   }
 
-  get iconPrefix() {
+  get iconPrefix(): any {
     return this._iconPrefix;
   }
 }

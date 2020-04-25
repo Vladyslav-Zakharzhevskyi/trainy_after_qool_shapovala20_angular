@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {HeaderConfig} from "./header-config.type";
-import {ActivatedRoute} from "@angular/router";
+import { Component, Input } from '@angular/core';
+import { HeaderConfig } from './header-config.type';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'application-header',
@@ -9,7 +9,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class HeaderComponent {
 
-  @Input("config") config: HeaderConfig;
+  @Input('config') config: HeaderConfig;
 
   constructor(private router: ActivatedRoute) {
 
@@ -17,9 +17,10 @@ export class HeaderComponent {
 
   isTabActive(url, queryParam): boolean {
     if (!url) {
-      return this.checkForParam(queryParam)
+      return this.checkForParam(queryParam);
     }
-    //todo Add for main case
+    // todo Add for main case
+
     return false;
   }
 
@@ -29,7 +30,7 @@ export class HeaderComponent {
     const navigationQParams = this.router.snapshot.root.queryParamMap;
 
     // default case
-    if (navigationQParams.keys.length == 0 && queryParam['tab'] == 'dashboard') {
+    if (navigationQParams.keys.length === 0 && queryParam['tab'] === 'dashboard') {
       return true;
     }
 
@@ -37,7 +38,7 @@ export class HeaderComponent {
     return param.every(
       navParam =>
         navigationQParams.get(navParam) &&
-        navigationQParams.get(navParam) == queryParam[navParam]
+        navigationQParams.get(navParam) === queryParam[navParam]
     );
   }
 

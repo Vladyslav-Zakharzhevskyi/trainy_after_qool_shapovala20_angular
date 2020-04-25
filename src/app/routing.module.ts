@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {BrowserModule} from '@angular/platform-browser';
-import {ApplicationEntryPointComponent} from './uicomponents/applications/application-entry-point.component';
-import {RegistrationComponent} from './uicomponents/bootstrap-registration/registration.component';
-import {LoginComponent} from './uicomponents/bootstrap-login/login.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { ApplicationEntryPointComponent } from './uicomponents/applications/application-entry-point.component';
+import { RegistrationComponent } from './uicomponents/bootstrap-registration/registration.component';
+import { LoginComponent } from './uicomponents/bootstrap-login/login.component';
 
 
 const routes: Routes = [
@@ -14,9 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ BrowserModule, RouterModule.forRoot(
-      routes)
-  ],
+  imports: [ BrowserModule, RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class RoutingModule { }

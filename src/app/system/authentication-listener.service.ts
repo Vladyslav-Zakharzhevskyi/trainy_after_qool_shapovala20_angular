@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import {ContextService} from "../service/context/context.service";
-import {AuthenticationStateService} from "../service/subjects/authentication-state.service";
-import {ApiService} from "../api/api.service";
-import {Router} from "@angular/router";
+import { ContextService } from '../service/context/context.service';
+import { AuthenticationStateService } from '../service/subjects/authentication-state.service';
+import { ApiService } from '../api/api.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationListenerService {
 
-  public userIsLoggedIn: boolean = false;
-  public currentLoggedInUserName: string = "";
+  public userIsLoggedIn = false;
+  public currentLoggedInUserName = '';
 
   constructor(private context: ContextService,
               private authState: AuthenticationStateService,
@@ -22,25 +22,27 @@ export class AuthenticationListenerService {
   }
 
   private initLoginLogout(): void {
-    this.authState.getStateChange().subscribe(isUserAuthenticated => {
-      this.userIsLoggedIn = isUserAuthenticated;
+    this.authState.getStateChange()
+      .subscribe(isUserAuthenticated => {
+        this.userIsLoggedIn = isUserAuthenticated;
 
-      if (isUserAuthenticated) {
-        this.initLogin();
-      } else if (!isUserAuthenticated) {
-        // this.initLogout();
-      }
-    });
+        if (isUserAuthenticated) {
+          this.initLogin();
+        } else if (!isUserAuthenticated) {
+          // this.initLogout();
+        }
+      });
   }
 
-  private initLogin() {
+  private initLogin(): void {
     const loggedInUser = this.context.getCurrentLoggedInUser();
     this.currentLoggedInUserName = loggedInUser.firstName;
   }
 
-  private initLogout() {
+  private initLogout(): void {
     this.context.logout();
-    this.api.logout().subscribe();
+    this.api.logout()
+      .subscribe();
     this.router.navigate(['/login']);
   }
 

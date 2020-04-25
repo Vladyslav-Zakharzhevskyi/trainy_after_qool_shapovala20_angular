@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
-import {SubjectPoolService} from '../service/subjects/subject-pool.service';
-import {ContextService} from '../service/context/context.service';
-import {ApiService} from '../api/api.service';
-import {Router} from '@angular/router';
-import {AuthenticationStateService} from '../service/subjects/authentication-state.service';
-import {TranslateService} from '@ngx-translate/core';
-import {TranslationModule} from '../service/translation.module';
+import { Component } from '@angular/core';
+import { SubjectPoolService } from '../service/subjects/subject-pool.service';
+import { ContextService } from '../service/context/context.service';
+import { ApiService } from '../api/api.service';
+import { Router } from '@angular/router';
+import { AuthenticationStateService } from '../service/subjects/authentication-state.service';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslationModule } from '../service/translation.module';
 
 @Component({
   selector: 'application-wrapper',
@@ -26,14 +26,14 @@ export class ApplicationWrapperComponent {
     this.init();
   }
 
-  private init() {
+  private init(): void {
     // Get application settings
     this.getApplicationSettings();
   }
 
-  private getApplicationSettings() {
+  private getApplicationSettings(): void {
     this.api.getApplicationSettings().subscribe(applicationSettings => {
-      if (applicationSettings != null) {
+      if (applicationSettings !== undefined) {
         this.context.setApplicationSettings(applicationSettings);
       }
     });

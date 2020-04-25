@@ -1,11 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Person} from '../_models/person';
-import {Observable} from 'rxjs';
-import {Advertisement} from '../_models/advertisement';
-import {environment} from '../../environments/environment';
-import {AbstractControl, AsyncValidatorFn} from '@angular/forms';
-import {map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Person } from '../_models/person';
+import { Observable } from 'rxjs';
+import { Advertisement } from '../_models/advertisement';
+import { environment } from '../../environments/environment';
 
 const HOST = environment.apiUrl;
 
@@ -28,6 +26,7 @@ export class ApiService {
 
   public loginPerson(person: Person): Observable<HttpResponse<Person>>  {
     const url = HOST + '/api/person/do-login?username=' + person.username + '&password=' + person.password;
+
     return this.httpClient.post<Person>(url, {}, { observe: 'response' });
   }
 

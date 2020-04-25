@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, Validators} from '@angular/forms';
-import {ApiService} from '../../api/api.service';
-import {ErrorUtilsService} from '../../service/util/error-utils.service';
-import {Person} from '../../_models/person';
-import {Router} from '@angular/router';
-import {timer} from 'rxjs';
-import {ToastrService} from 'ngx-toastr';
-import {TranslateService} from '@ngx-translate/core';
-import {WithValidation} from '../../_models/interfaces/with.validation';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, Validators } from '@angular/forms';
+import { ApiService } from '../../api/api.service';
+import { ErrorUtilsService } from '../../service/util/error-utils.service';
+import { Person } from '../../_models/person';
+import { Router } from '@angular/router';
+import { timer } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
+import { WithValidation } from '../../_models/interfaces/with.validation';
 
 
 @Component({
@@ -41,10 +41,10 @@ export class RegistrationComponent implements OnInit, WithValidation {
     this.addValidation();
   }
 
-  addValidation() {
+  addValidation(): void {
     this.formValidation = {
       userName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20),
-        this.checkUserNameAvailability.bind(this)]),
+                                     this.checkUserNameAvailability.bind(this)]),
       firstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
       lastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -55,6 +55,7 @@ export class RegistrationComponent implements OnInit, WithValidation {
 
   hasError(key: string): boolean {
     const field = this.formValidation[key];
+
     return field.invalid && Object.keys(field.errors).length > 0 && field.dirty;
   }
 
@@ -62,33 +63,36 @@ export class RegistrationComponent implements OnInit, WithValidation {
     return this.errorUtils.extractErrorMessage(this.formValidation, key);
   }
 
-  getValidityClass(key: string) {
+  getValidityClass(key: string): string {
     const field = this.formValidation[key];
     if (!field.dirty) {
       return '';
     }
+
     return this.hasError(key) ? 'is-invalid' : 'is-valid';
   }
 
-  checkUserNameAvailability(control: AbstractControl) {
+  checkUserNameAvailability(control: AbstractControl): void {
     if (control.value) {
-      this.apiService.checkUsernameAvailability(control.value).subscribe(response => {
-        if (Object.keys(response).some(key => key === 'Status' && response['Status'] === 'Error')) {
+      this.apiService.checkUsernameAvailability(control.value)
+        .subscribe(response => {
+        if (Object.keys(response)
+          .some(key => key === 'Status' && response['Status'] === 'Error')) {
           control.setErrors({userNameInUse: control.value});
         }
       });
     }
   }
 
-  checkPasswordsEqualsPassR(control: AbstractControl) {
+  checkPasswordsEqualsPassR(control: AbstractControl): void {
     this.checkPasswordsEquals(control);
   }
 
-  checkPasswordsEqualsPass(control: AbstractControl) {
+  checkPasswordsEqualsPass(control: AbstractControl): void {
     this.checkPasswordsEquals(control);
   }
 
-  checkPasswordsEquals(control: AbstractControl) {
+  checkPasswordsEquals(control: AbstractControl): void {
     if (this.formValidation && control.value) {
       if (this.formValidation.password.value !== this.formValidation.passwordRecap.value &&
         (this.formValidation.password.value && this.formValidation.passwordRecap.value)) {
@@ -101,14 +105,14 @@ export class RegistrationComponent implements OnInit, WithValidation {
     }
   }
 
-  isFormValid() {
+  isFormValid(): boolean {
     return Object.keys(this.formValidation)
       .every(key => {
-        if (key === 'password' || key === 'passwordRecap') { /* -_- UGLY */
+        if (key === 'password' || key === 'passwordRecap') { // -_- UGLY
           return true;
-        } else {
-          return this.formValidation[key].valid;
         }
+
+        return this.formValidation[key].valid;
       });
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs'
-import {ContextService} from "../context/context.service";
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ContextService } from '../context/context.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthenticationStateService {
 
   private authState = new BehaviorSubject<boolean>(this.context.userIsLoggedIn());
 
-  public setState(state: boolean) {
+  public setState(state: boolean): void {
     this.authState.next(state);
   }
 

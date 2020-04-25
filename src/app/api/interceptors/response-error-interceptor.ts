@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {catchError} from 'rxjs/operators';
-import {ToastrService} from 'ngx-toastr';
+import { Injectable } from '@angular/core';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class ResponseErrorInterceptor implements HttpInterceptor {
@@ -23,12 +23,14 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
           if (err instanceof HttpErrorResponse) {
             try {
               this.toasterService.error(
+                // tslint:disable-next-line:prefer-template
                 'Message: ' + err.error.message, 'Status: (' + err.error.status + ') ' + err.error.error, this.config);
             } catch (e) {
               this.toasterService.error(
                 'An error occurred!', '', this.config);
             }
           }
+
           return of(err);
         }));
   }

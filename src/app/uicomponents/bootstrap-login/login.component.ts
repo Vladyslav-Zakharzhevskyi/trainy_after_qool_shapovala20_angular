@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Person} from '../../_models/person';
-import {FormControl, Validators} from '@angular/forms';
-import {WithValidation} from '../../_models/interfaces/with.validation';
-import {ErrorUtilsService} from '../../service/util/error-utils.service';
-import {ApiService} from '../../api/api.service';
-import {ContextService} from '../../service/context/context.service';
-import {AuthenticationStateService} from '../../service/subjects/authentication-state.service';
-import {Router} from '@angular/router';
-import {ToastrService} from 'ngx-toastr';
-import {TranslateService} from '@ngx-translate/core';
+import { Component, OnInit } from '@angular/core';
+import { Person } from '../../_models/person';
+import { FormControl, Validators } from '@angular/forms';
+import { WithValidation } from '../../_models/interfaces/with.validation';
+import { ErrorUtilsService } from '../../service/util/error-utils.service';
+import { ApiService } from '../../api/api.service';
+import { ContextService } from '../../service/context/context.service';
+import { AuthenticationStateService } from '../../service/subjects/authentication-state.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'application-bootstrap-login',
@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit, WithValidation {
 
   hasError(key: string): boolean {
     const field = this.formValidation[key];
+
     return field.invalid && Object.keys(field.errors).length > 0 && field.dirty;
   }
 
@@ -53,6 +54,7 @@ export class LoginComponent implements OnInit, WithValidation {
     if (!field.dirty) {
       return '';
     }
+
     return this.hasError(key) ? 'is-invalid' : 'is-valid';
   }
 
@@ -60,12 +62,12 @@ export class LoginComponent implements OnInit, WithValidation {
     return this.errorUtils.extractErrorMessage(this.formValidation, key);
   }
 
-  isFormValid() {
+  isFormValid(): boolean {
     return Object.keys(this.formValidation)
       .every(key => this.formValidation[key].valid);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.apiService.loginPerson(this.person).subscribe(
       person => {
         this.toastr.success('', this.translate.instant('login.successful'));
