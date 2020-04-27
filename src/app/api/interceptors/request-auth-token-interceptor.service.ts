@@ -15,7 +15,7 @@ export class RequestAuthTokenInterceptor implements HttpInterceptor {
       return next.handle(request.clone({headers}));
     }
     const jwtToken = this.context.getAccessToken();
-    if (jwtToken !== undefined) {
+    if (jwtToken) {
       // Add auth token to header
       request = request.clone({headers: request.headers.set(this.context.getAuthenticationHeader(), jwtToken)});
     }
