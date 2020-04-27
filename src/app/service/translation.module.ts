@@ -13,7 +13,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   imports: [
     TranslateModule.forRoot({
-      defaultLanguage: 'ru',
+      defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
