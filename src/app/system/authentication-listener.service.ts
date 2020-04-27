@@ -9,45 +9,34 @@ import { Router } from '@angular/router';
 })
 export class AuthenticationListenerService {
 
-  public userIsLoggedIn = false;
-  public currentLoggedInUserName = '';
-
   constructor(private context: ContextService,
               private authState: AuthenticationStateService,
               private api: ApiService,
               private router: Router) {
 
-    this.userIsLoggedIn = this.context.userIsLoggedIn();
-    this.initLoginLogout();
+    this.authenticationStateListener();
   }
 
-  private initLoginLogout(): void {
-    this.authState.getStateChange()
-      .subscribe(isUserAuthenticated => {
-        this.userIsLoggedIn = isUserAuthenticated;
+  private authenticationStateListener(): void {
+    this.authState.getStateChange().subscribe(authState => {
+      // Prevent executing logic if userIsLoggedIn currently
+      if (this.context.userIsLoggedIn() && authState.userIsLoggedIn) { // -_-
+        return;
+      }
 
-        if (isUserAuthenticated) {
-          this.initLogin();
-        } else if (!isUserAuthenticated) {
-          // this.initLogout();
-        }
-      });
-  }
-
-  private initLogin(): void {
-    const loggedInUser = this.context.getCurrentLoggedInUser();
-    this.currentLoggedInUserName = loggedInUser.firstName;
-  }
-
-  private initLogout(): void {
-    this.context.logout();
-    this.api.logout()
-      .subscribe();
-    this.router.navigate(['/login']);
-  }
-
-  public logout(): void {
-    this.authState.setState(false);
+      // Login
+      if (authState.userIsLoggedIn && authState.authPerson) {
+        console.log('User has been Logged In!');
+        this.context.setAccessToken(authState.authPerson, authState.accessToken);
+        this.context.authenticate(authState.authPerson);
+        this.router.navigate(['/applications']);
+      } else {
+        // Logout
+        console.log('User has been Logged out!');
+        this.context.logout();
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
 }

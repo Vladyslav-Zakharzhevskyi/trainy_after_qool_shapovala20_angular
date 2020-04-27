@@ -31,7 +31,7 @@ export class ApiService {
   }
 
   public getPersons() {
-    return this.httpClient.get(HOST + '/api/person');
+    return this.httpClient.get(HOST + '/api/person/all');
   }
 
   public registerPerson(person: Person): Observable<Person> {

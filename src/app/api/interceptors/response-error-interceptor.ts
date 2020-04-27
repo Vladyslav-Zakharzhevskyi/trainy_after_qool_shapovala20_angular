@@ -23,6 +23,7 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
         catchError((err: any) => {
           if (err instanceof HttpErrorResponse) {
             try {
+              console.error(err);
               this.toasterService.error(
                 // tslint:disable-next-line:prefer-template
                 'Message: ' + err.error.message, 'Status: (' + err.error.status + ') ' + err.error.error, this.config);

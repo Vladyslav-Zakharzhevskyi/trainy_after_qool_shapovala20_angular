@@ -5,7 +5,7 @@ import { WithValidation } from '../../_models/interfaces/with.validation';
 import { ErrorUtilsService } from '../../service/util/error-utils.service';
 import { ApiService } from '../../api/api.service';
 import { ContextService } from '../../service/context/context.service';
-import { AuthenticationStateService } from '../../service/subjects/authentication-state.service';
+import {AuthenticationState, AuthenticationStateService} from '../../service/subjects/authentication-state.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
@@ -68,13 +68,18 @@ export class LoginComponent implements OnInit, WithValidation {
   }
 
   onSubmit(): void {
-    this.apiService.loginPerson(this.person).subscribe(
-      person => {
-        this.toastr.success('', this.translate.instant('login.successful'));
-        this.context.setAccessToken(this.person, person);
-        this.context.authenticate(person.body);
-        this.authState.setState(true);
-        this.router.navigate(['/applications']);
-      });
+    this.apiService.loginPerson(this.person).subscribe(response => {
+      this.toastr.success('', this.translate.instant('login.successful'));
+      this.authState.setState(new AuthenticationState(true, response.body, this.generateAccessToken(response)));
+    });
+  }
+
+  private generateAccessToken(response: any): string {
+    const jwtToken = response.headers.get(ContextService.JWT_HEADER_NAME);
+    if (jwtToken) {
+      return jwtToken;
+    }
+
+    return window.btoa(`${this.person.username}:${this.person.password}`);
   }
 }

@@ -1,34 +1,5 @@
-#app-title {
-  width: 700px;
-  height: 350px;
-  margin: auto;
-}
 
-.app-title-name {
-  font-size: 30px;
-  font-weight: normal;
-  font-family: Paytone One;
-}
 
-a{
-  text-decoration:none;
-  color: #0062cc;
-  border-bottom:2px solid #0062cc;
-}
-.box{
-  padding:0px 0px 60px;
-}
 
-.box-part{
-  background:#FFF;
-  border-radius:0;
-  padding:60px 10px;
-  margin:30px 0px;
-}
-.text{
-  margin:20px 0px;
-}
 
-.fa{
-  color:#4183D7;
-}
+

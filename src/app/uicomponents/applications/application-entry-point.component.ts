@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from '../../api/api.service';
+import { AuthenticationState, AuthenticationStateService } from '../../service/subjects/authentication-state.service';
 
 @Component({
   selector: 'application-application-entry-point',
@@ -8,10 +10,17 @@ import { Router } from '@angular/router';
 })
 export class ApplicationEntryPointComponent implements OnInit {
 
-  constructor(private route: Router) { }
+  constructor(private route: Router,
+              private authState: AuthenticationStateService,
+              private api: ApiService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+
+  public logout(): void {
+    this.api.logout().subscribe(successLogout => {
+      this.authState.setState(new AuthenticationState(false, undefined, undefined));
+      }
+    );
   }
-
-
 }
