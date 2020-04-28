@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ContextService } from '../service/context/context.service';
-import { AuthenticationStateService } from '../service/subjects/authentication-state.service';
+import { AuthenticationStateService } from './authentication-state.service';
 import { ApiService } from '../api/api.service';
 import { Router } from '@angular/router';
 
@@ -20,7 +20,7 @@ export class AuthenticationListenerService {
   private authenticationStateListener(): void {
     this.authState.getStateChange().subscribe(authState => {
       // Prevent executing logic if userIsLoggedIn currently
-      if (this.context.userIsLoggedIn() && authState.userIsLoggedIn) { // -_-
+      if (authState.isPreventLogout()) { // -_-
         return;
       }
 

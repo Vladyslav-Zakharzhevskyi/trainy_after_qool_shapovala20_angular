@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Person } from '../../_models/person';
-import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ export class ContextService {
   public JWT_TOKEN = 'auth_token';
   public CURRENT_USER = 'auth_user';
   public USER_IS_LOGGED_IN = 'auth_user_is_logged_in';
-  public APP_SETTINGS_KEY = 'application_settings';
+  public APP_SETTINGS = 'application_settings';
 
   public authenticate(person: Person): void {
     this.setUserIsLoggedIn(true);
@@ -26,20 +25,36 @@ export class ContextService {
   }
 
   public getAuthenticationHeader(): string {
-    const key = window.sessionStorage.getItem(this.APP_SETTINGS_KEY);
-    const applicationSettings = JSON.parse(key);
-
-    return applicationSettings['authenticationType'] === 'jwt' ? 'Authentication' : 'Authorization';
+    return this.getHeaderData('HEADER');
   }
 
   public getAuthenticationHeaderPrefixValue(): string {
-    const applicationSettings = JSON.parse(window.sessionStorage.getItem(this.APP_SETTINGS_KEY));
+    return this.getHeaderData('HEADER_PREFIX_VALUE');
+  }
 
-    return applicationSettings['authenticationType'] === 'jwt' ? 'Bearer' : 'Basic';
+  public getHeaderData(key: string): string {
+    const applicationSettings = window.sessionStorage.getItem(this.APP_SETTINGS);
+    if (!applicationSettings) {
+      console.log('Missed Application Settings');
+
+      return '';
+    }
+    const applicationSettingsJSON = JSON.parse(applicationSettings);
+
+    switch (applicationSettingsJSON['authenticationType']) {
+      case 'jwt':
+        return key === 'HEADER' ? 'Authentication' : 'Bearer';
+      case 'basic':
+        return key === 'HEADER' ? 'Authorization' : 'Basic';
+      default:
+        console.log('Missed Application Settings');
+
+        return '';
+    }
   }
 
   public setApplicationSettings(applicationSettings: object): void  {
-    window.sessionStorage.setItem(this.APP_SETTINGS_KEY, JSON.stringify(applicationSettings));
+    window.sessionStorage.setItem(this.APP_SETTINGS, JSON.stringify(applicationSettings));
   }
 
   public getCurrentLoggedInUser(): Person {
@@ -72,7 +87,6 @@ export class ContextService {
     this.setUserIsLoggedIn(false);
     window.sessionStorage.removeItem(this.CURRENT_USER);
     window.sessionStorage.removeItem(this.JWT_TOKEN);
-    window.sessionStorage.removeItem(this.APP_SETTINGS_KEY);
   }
 
 }

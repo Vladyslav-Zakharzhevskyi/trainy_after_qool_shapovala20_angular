@@ -15,11 +15,12 @@ export class RequestAuthTokenInterceptor implements HttpInterceptor {
       return next.handle(request.clone({headers}));
     }
     const jwtToken = this.context.getAccessToken();
-    const headerWithToken = `${this.context.getAuthenticationHeaderPrefixValue()}:${jwtToken}`;
 
-    if (jwtToken && headerWithToken) {
+    if (jwtToken) {
       // Add auth token to header
-      request = request.clone({headers: request.headers.set(this.context.getAuthenticationHeader(), headerWithToken)});
+      const headerName = this.context.getAuthenticationHeader();
+      const headerValue = `${this.context.getAuthenticationHeaderPrefixValue()}:${jwtToken}`;
+      request = request.clone({headers: request.headers.set(headerName, headerValue)});
     }
 
     return next.handle(request);

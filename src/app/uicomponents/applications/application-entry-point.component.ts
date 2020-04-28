@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../api/api.service';
-import { AuthenticationState, AuthenticationStateService } from '../../service/subjects/authentication-state.service';
+import { AuthenticationState, AuthenticationStateService } from '../../system/authentication-state.service';
 
 @Component({
   selector: 'application-application-entry-point',
@@ -18,8 +18,9 @@ export class ApplicationEntryPointComponent implements OnInit {
 
 
   public logout(): void {
+    console.log('Logout called');
     this.api.logout().subscribe(successLogout => {
-      this.authState.setState(new AuthenticationState(false, undefined, undefined));
+      this.authState.setState(new AuthenticationState(false, undefined, undefined, {}));
       }
     );
   }

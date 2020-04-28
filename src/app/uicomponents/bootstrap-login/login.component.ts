@@ -5,7 +5,7 @@ import { WithValidation } from '../../_models/interfaces/with.validation';
 import { ErrorUtilsService } from '../../service/util/error-utils.service';
 import { ApiService } from '../../api/api.service';
 import { ContextService } from '../../service/context/context.service';
-import {AuthenticationState, AuthenticationStateService} from '../../service/subjects/authentication-state.service';
+import { AuthenticationState, AuthenticationStateService } from '../../system/authentication-state.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit, WithValidation {
 
   addValidation(): void {
     this.formValidation = {
-      userName: new FormControl('', [Validators.required]),
+      userName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
       password: new FormControl('', [Validators.required])
     };
   }
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit, WithValidation {
   onSubmit(): void {
     this.apiService.loginPerson(this.person).subscribe(response => {
       this.toastr.success('', this.translate.instant('login.successful'));
-      this.authState.setState(new AuthenticationState(true, response.body, this.generateAccessToken(response)));
+      this.authState.setState(new AuthenticationState(true, response.body, this.generateAccessToken(response), {}));
     });
   }
 

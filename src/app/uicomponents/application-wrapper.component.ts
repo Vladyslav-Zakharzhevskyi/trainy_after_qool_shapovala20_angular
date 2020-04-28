@@ -3,7 +3,7 @@ import { SubjectPoolService } from '../service/subjects/subject-pool.service';
 import { ContextService } from '../service/context/context.service';
 import { ApiService } from '../api/api.service';
 import { Router } from '@angular/router';
-import { AuthenticationStateService } from '../service/subjects/authentication-state.service';
+import { AuthenticationStateService } from '../system/authentication-state.service';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslationModule } from '../service/translation.module';
 
