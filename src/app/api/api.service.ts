@@ -4,6 +4,7 @@ import { Person } from '../_models/person';
 import { Observable } from 'rxjs';
 import { Advertisement } from '../_models/advertisement';
 import { environment } from '../../environments/environment';
+import { ResponseEntity } from '../_models/response-entity';
 
 const HOST = environment.apiUrl;
 
@@ -15,6 +16,7 @@ export class ApiService {
   private static SKIP_INTERCEPTOR_HEADER = new HttpHeaders().set('InterceptorSkipHeader', 'SKIP_HEADER');
 
   constructor(private httpClient: HttpClient) {
+    console.log(`Server url: ${environment.apiUrl}`);
     console.log(`Is production: ${environment.production}`);
   }
 
@@ -39,6 +41,10 @@ export class ApiService {
 
   public checkUsernameAvailability(username: string): Observable<object> {
     return this.httpClient.post(HOST + '/api/person/checkUserNameAvailability/' + username, {});
+  }
+
+  public confirmEmail(token: string): Observable<ResponseEntity> {
+    return this.httpClient.get<ResponseEntity>(`${HOST}/api/person/confirmEmail?token=${token}`);
   }
 
   public getCurrentPerson(): Observable<Person> {

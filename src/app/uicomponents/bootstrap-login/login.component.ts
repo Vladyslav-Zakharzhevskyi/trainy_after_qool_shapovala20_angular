@@ -6,7 +6,7 @@ import { ErrorUtilsService } from '../../service/util/error-utils.service';
 import { ApiService } from '../../api/api.service';
 import { ContextService } from '../../service/context/context.service';
 import { AuthenticationState, AuthenticationStateService } from '../../system/authentication-state.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -17,13 +17,16 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LoginComponent implements OnInit, WithValidation {
 
-  constructor(private apiService: ApiService,
+  constructor(private activatedRoute: ActivatedRoute,
+              private apiService: ApiService,
               private authState: AuthenticationStateService,
               private router: Router,
               private toastr: ToastrService,
               private translate: TranslateService,
               private errorUtils: ErrorUtilsService,
-              private context: ContextService) { }
+              private context: ContextService) {
+    this.confirmEmail();
+  }
 
   person = new Person();
 
@@ -31,6 +34,22 @@ export class LoginComponent implements OnInit, WithValidation {
     userName: FormControl;
     password: FormControl;
   };
+
+  private confirmEmail(): void {
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      // Do call to Confirm email
+      const token = params['token'];
+      if (token) {
+        this.apiService.confirmEmail(token).subscribe(response => {
+          const username = response.data['username'];
+          if (username) {
+            this.person.username = username;
+          }
+          this.toastr.success('You E-mail has been confirmed successfully!', 'E-mail has been confirmed');
+        });
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.addValidation();
@@ -69,8 +88,9 @@ export class LoginComponent implements OnInit, WithValidation {
 
   onSubmit(): void {
     this.apiService.loginPerson(this.person).subscribe(response => {
-      this.toastr.success('', this.translate.instant('login.successful'));
-      this.authState.setState(new AuthenticationState(true, response.body, this.generateAccessToken(response), {}));
+      const authPerson = response.body;
+      this.toastr.success(this.translate.instant('login.successful'), `Hi, ${authPerson.firstName}`);
+      this.authState.setState(new AuthenticationState(true, authPerson, this.generateAccessToken(response), {}));
     });
   }
 
