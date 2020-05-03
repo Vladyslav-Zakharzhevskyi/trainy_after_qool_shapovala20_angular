@@ -121,7 +121,7 @@ export class RegistrationComponent implements OnInit, WithValidation {
     this.apiService.registerPerson(this.person).subscribe(resp => {
     const source = timer(1000);
     source.subscribe(value => {
-        this.toastr.info(this.translate.instant('email.confirm.successful'), this.translate.instant('email.confirm'),
+        this.toastr.info(this.translate.instant('email.confirm.message'), this.translate.instant('email.confirm.title'),
           {timeOut: 10000, enableHtml: true});
         this.registrationInProgress = false;
         this.router.navigate(['/login']).then(r => {});

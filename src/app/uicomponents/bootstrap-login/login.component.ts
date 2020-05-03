@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit, WithValidation {
           if (username) {
             this.person.username = username;
           }
-          this.toastr.success('You E-mail has been confirmed successfully!', 'E-mail has been confirmed');
+          this.toastr.success(this.translate.instant('email.confirmation.success.msg'), this.translate.instant('email.confirmation.success.title'));
         });
       }
     });

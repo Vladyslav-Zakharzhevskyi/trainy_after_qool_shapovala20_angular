@@ -11,6 +11,12 @@
     },
     "only-arrow-functions": false,
     "newline-per-chained-call": false,
+    "max-line-length" : {
+      "options": [
+        {"limit": 155}
+      ]
+    },
+    "newline-before-return": false,
 
     "no-parameter-reassignment": false,
     "array-type": false,
@@ -40,10 +46,6 @@
     ],
     "interface-name": false,
     "max-classes-per-file": false,
-    "max-line-length": [
-      true,
-      140
-    ],
     "member-access": false,
     "member-ordering": [
       true,

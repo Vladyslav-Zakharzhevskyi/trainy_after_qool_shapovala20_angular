@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector, NgModule } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class ResponseErrorInterceptor implements HttpInterceptor {
 
-  constructor(public toasterService: ToastrService) {}
+  constructor(private injector: Injector,
+              public toasterService: ToastrService) {}
 
   private config: object = {
     timeOut: 10000,
@@ -37,22 +39,27 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
 
   private showError(err: HttpErrorResponse): void {
     const errorCase = this.getErrorCase(err);
+    const status = err.error.status;
 
     switch (errorCase) {
       case '0':
-        this.toasterService.error(`Can't get access to endpoint due using self-written certificate.
-        Make sure you go to AWS Beanstalk and either click allow to Trust this web-site or disable antivirus checking.
-        <a class="btn btn-primary" href='${err.url}' target="_blank">Open AWS</a>.`,
-          `Https Certificate Error`, this.config);
+        this.toasterService.error(
+          `${this.getTranslate().instant('error.server.unavailable.msg', {url: err.url})}`,
+          `${this.getTranslate().instant('error.server.unavailable.title')}`,
+          this.config);
         break;
       case '1':
-        this.toasterService.error(`${err.error.description}`, `${err.error.title} - Status: (${err.error.status})`, this.config);
+        if (status === 452 || status === 450) {
+          this.showEmailTokenValidationError(status, err.error);
+          return;
+        }
+        this.toasterService.error(`${err.error.description}`, `${err.error.title} - Status: (${status})`, this.config);
         break;
       case '2':
         this.toasterService.error(`url: ${err.url}`, `${err.error.error} - Status: (${err.error.status})`, this.config);
         break;
       default:
-        this.toasterService.error('An error occurred!', '', this.config);
+        this.showUnrecognizedErrorMsg();
     }
   }
 
@@ -64,5 +71,30 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
     }
 
     return '2';
+  }
+
+  showEmailTokenValidationError(status: number, err: any): void {
+    switch (status) {
+      case 450:
+        this.toasterService.error(this.getTranslate().instant('error.email.token.not.found', {token: err.data.token}),
+          `${this.getTranslate().instant('error.backend.title')}`, this.config);
+        break;
+      case 452:
+        this.toasterService.error(this.getTranslate().instant('error.email.token.expired',
+          {token: err.data.token, expiredDate: err.data.expiredDate}),
+          `${this.getTranslate().instant('error.backend.title')}`, this.config);
+        break;
+      default:
+        this.showUnrecognizedErrorMsg();
+    }
+  }
+
+  showUnrecognizedErrorMsg(): void {
+    this.toasterService.error('An error occurred!', '', this.config);
+  }
+
+  // Get translate service by injector
+  private getTranslate(): TranslateService {
+    return this.injector.get(TranslateService);
   }
 }
