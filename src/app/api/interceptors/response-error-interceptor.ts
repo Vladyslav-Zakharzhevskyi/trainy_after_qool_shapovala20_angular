@@ -55,7 +55,11 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
         }
         this.toasterService.error(`${err.error.description}`, `${err.error.title} - Status: (${status})`, this.config);
         break;
-      case '2':
+      case '3':
+        // Authentication error
+        this.showAuthenticationError(err.error.statusCode, err.error.authenticationError);
+        break;
+      case '000':
         this.toasterService.error(`url: ${err.url}`, `${err.error.error} - Status: (${err.error.status})`, this.config);
         break;
       default:
@@ -68,9 +72,12 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
       return '0';
     } else if (err.error.hasOwnProperty('title') && err.error.hasOwnProperty('description') && err.error.hasOwnProperty('status')) {
       return '1';
+    } else if (err.error.hasOwnProperty('authenticationError') &&
+              (err.error.statusCode === 321 || err.error.statusCode === 322 || err.error.statusCode === 455)) {
+      return '3';
     }
 
-    return '2';
+    return '000';
   }
 
   showEmailTokenValidationError(status: number, err: any): void {
@@ -96,5 +103,30 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
   // Get translate service by injector
   private getTranslate(): TranslateService {
     return this.injector.get(TranslateService);
+  }
+
+  showAuthenticationError(status: number, err: any): void {
+    switch (status) {
+      case 321:
+        this.toasterService.error(
+          this.getTranslate().instant('error.login.username.not.found.msg'),
+          this.getTranslate().instant('error.login.username.not.found.title'),
+          this.config);
+        break;
+      case 322:
+        this.toasterService.error(
+          this.getTranslate().instant('error.login.wrong.password.msg'),
+          this.getTranslate().instant('error.login.wrong.password.title'),
+          this.config);
+        break;
+      case 455:
+        this.toasterService.error(
+          this.getTranslate().instant('error.email.not.confirmed.msg'),
+          this.getTranslate().instant('error.email.not.confirmed.title'),
+          this.config);
+        break;
+      default:
+        this.showUnrecognizedErrorMsg();
+    }
   }
 }
