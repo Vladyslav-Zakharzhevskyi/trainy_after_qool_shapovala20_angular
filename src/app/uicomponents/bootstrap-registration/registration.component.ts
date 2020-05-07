@@ -8,6 +8,7 @@ import { timer } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { WithValidation } from '../../_models/interfaces/with.validation';
+import {debounceTime, distinctUntilChanged, filter} from 'rxjs/operators';
 
 
 @Component({
@@ -24,6 +25,11 @@ export class RegistrationComponent implements OnInit, WithValidation {
               private errorUtils: ErrorUtilsService) {
   }
 
+  // Allow only letters, at least one underscore
+  public static userNamePattern = '^[a-z](?=.*[_]).*$';
+  // Password should be at least 8 characters long and should contain one number,one character and one special character.
+  public static passwordPattern = '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$';
+
   person: Person = new Person();
 
   registrationInProgress = false;
@@ -39,17 +45,18 @@ export class RegistrationComponent implements OnInit, WithValidation {
 
   ngOnInit(): void {
     this.addValidation();
+    this.addUsernameAvailabilityCheck();
   }
 
   addValidation(): void {
     this.formValidation = {
-      userName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20),
-                                     this.checkUserNameAvailability.bind(this)]),
-      firstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
-      lastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+      userName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20),
+                                     Validators.pattern(RegistrationComponent.userNamePattern)]),
+      firstName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+      lastName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [this.checkPasswordsEqualsPass.bind(this)]),
-      passwordRecap: new FormControl('', [this.checkPasswordsEqualsPassR.bind(this), Validators.required])
+      password: new FormControl('', [this.checkPasswordsEqualsPass.bind(this), Validators.pattern(RegistrationComponent.passwordPattern)]),
+      passwordRecap: new FormControl('', this.checkPasswordsEqualsPassR.bind(this))
     };
   }
 
@@ -59,8 +66,8 @@ export class RegistrationComponent implements OnInit, WithValidation {
     return field.invalid && Object.keys(field.errors).length > 0 && field.dirty;
   }
 
-  getErrorMessage(key: string): string {
-    return this.errorUtils.extractErrorMessage(this.formValidation, key);
+  getErrorMessage(key: string, opts?: {patternType: string}): string {
+    return this.errorUtils.extractErrorMessage(this.formValidation, key, opts);
   }
 
   getValidityClass(key: string): string {
@@ -72,16 +79,22 @@ export class RegistrationComponent implements OnInit, WithValidation {
     return this.hasError(key) ? 'is-invalid' : 'is-valid';
   }
 
-  checkUserNameAvailability(control: AbstractControl): void {
-    if (control.value) {
-      this.apiService.checkUsernameAvailability(control.value)
+  addUsernameAvailabilityCheck(): void {
+    this.formValidation.userName.valueChanges.pipe(
+      filter(value => (value && value.length >= 5)),
+      debounceTime(700),
+      distinctUntilChanged()
+    ).subscribe(value => {
+      this.apiService.checkUsernameAvailability(this.formValidation.userName.value)
         .subscribe(response => {
-        if (Object.keys(response)
-          .some(key => key === 'Status' && response['Status'] === 'Error')) {
-          control.setErrors({userNameInUse: control.value});
-        }
-      });
-    }
+          if (Object.keys(response)
+            .some(key => key === 'Status' && response['Status'] === 'Error')) {
+            this.formValidation.userName.setErrors({userNameInUse: this.formValidation.userName.value});
+          }
+        });
+    }, error => {
+      this.registrationInProgress = false;
+    });
   }
 
   checkPasswordsEqualsPassR(control: AbstractControl): void {

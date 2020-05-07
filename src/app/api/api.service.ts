@@ -26,7 +26,7 @@ export class ApiService {
   }
 
   public loginPerson(person: Person): Observable<HttpResponse<Person>>  {
-    const url = HOST + '/api/person/do-login?username=' + person.username + '&password=' + person.password;
+    const url = `${HOST}/api/person/do-login?username=${person.username}&password=${encodeURIComponent(person.password)}`;
 
     return this.httpClient.post<Person>(url, {}, { observe: 'response' });
   }

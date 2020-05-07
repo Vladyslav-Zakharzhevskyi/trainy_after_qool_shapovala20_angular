@@ -3,7 +3,7 @@ export interface WithValidation {
 
   hasError(key: string): boolean;
 
-  getErrorMessage(key: string): string;
+  getErrorMessage(key: string, opts?: {patternType: string}): string;
 
   getValidityClass(key: string): string;
 }

@@ -11,17 +11,17 @@
                  [(ngModel)]="person.username"
                  [formControl]="formValidation.userName"
                  [ngClass]="getValidityClass('userName')" >
-          <div class="invalid-feedback">{{getErrorMessage('userName')}}</div>
+          <div class="invalid-feedback">{{getErrorMessage('userName', {patternType: 'username'})}}</div>
         </div>
       </div>
       <div class="form-group row col-sm-12">
         <div class="col-sm-12 input-group-lg">
           <label for="pass">{{'PASSWORD' | translate}}</label>
-          <input id="pass" class="form-control" placeholder="{{'user.placeholder.password' | translate}}"
+          <input id="pass" class="form-control" type="password" placeholder="{{'user.placeholder.password' | translate}}"
                  [(ngModel)]="person.password"
                  [formControl]="formValidation.password"
                  [ngClass]="getValidityClass('password')">
-          <div class="invalid-feedback">{{getErrorMessage('password')}}</div>
+          <div class="invalid-feedback">{{getErrorMessage('password', {patternType: 'pass'})}}</div>
         </div>
       </div>
       <div class="row float-right pr-5">

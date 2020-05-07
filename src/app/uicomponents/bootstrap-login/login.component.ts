@@ -9,6 +9,7 @@ import { AuthenticationState, AuthenticationStateService } from '../../system/au
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { RegistrationComponent } from '../bootstrap-registration/registration.component';
 
 @Component({
   selector: 'application-bootstrap-login',
@@ -57,8 +58,9 @@ export class LoginComponent implements OnInit, WithValidation {
 
   addValidation(): void {
     this.formValidation = {
-      userName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
-      password: new FormControl('', [Validators.required])
+      userName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20),
+                                     Validators.pattern(RegistrationComponent.userNamePattern)]),
+      password: new FormControl('', [Validators.required, Validators.pattern(RegistrationComponent.passwordPattern)])
     };
   }
 
@@ -77,8 +79,8 @@ export class LoginComponent implements OnInit, WithValidation {
     return this.hasError(key) ? 'is-invalid' : 'is-valid';
   }
 
-  getErrorMessage(key: string): string {
-    return this.errorUtils.extractErrorMessage(this.formValidation, key);
+  getErrorMessage(key: string, opts?: {patternType: string}): string {
+    return this.errorUtils.extractErrorMessage(this.formValidation, key, opts);
   }
 
   isFormValid(): boolean {
