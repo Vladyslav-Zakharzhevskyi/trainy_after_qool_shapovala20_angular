@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Person } from '../_models/person';
-import { Observable } from 'rxjs';
-import { Advertisement } from '../_models/advertisement';
-import { environment } from '../../environments/environment';
-import { ResponseEntity } from '../_models/response-entity';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {Person} from '../_models/person';
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {ResponseEntity} from '../_models/response-entity';
+import {RequestType} from '../_models/request-type.enum';
 
 const HOST = environment.apiUrl;
 
@@ -21,22 +21,18 @@ export class ApiService {
   }
 
 
-  public getApplicationSettings(): Observable<any>  {
+  public getApplicationSettings(): Observable<any> {
     return this.httpClient.get<any>(HOST + '/api/getApplicationSettings', { headers: ApiService.SKIP_INTERCEPTOR_HEADER });
   }
 
   public loginPerson(person: Person): Observable<HttpResponse<Person>>  {
-    const url = `${HOST}/api/person/do-login?username=${person.username}&password=${encodeURIComponent(person.password)}`;
+    const url = `${HOST}/api/person/do-login?username=${person.userName}&password=${encodeURIComponent(person.password)}`;
 
     return this.httpClient.post<Person>(url, {}, { observe: 'response' });
   }
 
   public getPersons() {
     return this.httpClient.get(HOST + '/api/person/all');
-  }
-
-  public registerPerson(person: Person): Observable<Person> {
-    return this.httpClient.post<Person>(HOST + '/api/person/register', person);
   }
 
   public checkUsernameAvailability(username: string): Observable<object> {
@@ -47,20 +43,28 @@ export class ApiService {
     return this.httpClient.get<ResponseEntity>(`${HOST}/api/person/confirmEmail?token=${token}`);
   }
 
+  public registerPerson(person: Person): Observable<Person> {
+    return this.httpClient.post<Person>(HOST + '/api/person/register', person);
+  }
+
   public getCurrentPerson(): Observable<Person> {
-    return this.httpClient.get<Person>(HOST + '/api/person/current');
+    return this.httpClient.get<Person>(HOST + '/api/person/');
   }
 
-  public addAdvertisement(item: Advertisement): Observable<any> {
-    return this.httpClient.post(HOST + '/api/rental/advertisement', item);
+  public savePerson(person: Person): Observable<Person> {
+    return this.httpClient.put<Person>(`${HOST}/api/person/`, person);
   }
 
-  public getAdvertisements(): Observable<any> {
-    return this.httpClient.get<Advertisement>(HOST + '/api/rental/advertisement');
+  public getServerData(type: RequestType, resource: string): Observable<any> {
+    if (type === RequestType.REPOSITORY) {
+      resource = `${resource}Repository`;
+    }
+
+    return this.httpClient.get(`${HOST}/api/getDataByType/${type}/${resource}`);
   }
 
   public logout(): Observable<object> {
-    return this.httpClient.get(HOST + '/logout');
+    return this.httpClient.get(`${HOST}/logout`);
   }
 
 

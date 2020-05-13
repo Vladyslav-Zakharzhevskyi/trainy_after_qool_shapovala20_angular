@@ -7,9 +7,9 @@ import { ApiService } from '../../api/api.service';
 import { ContextService } from '../../service/context/context.service';
 import { AuthenticationState, AuthenticationStateService } from '../../system/authentication-state.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { RegistrationComponent } from '../bootstrap-registration/registration.component';
+import { CustomToastrService } from '../../service/util/custom-toastr.service';
 
 @Component({
   selector: 'application-bootstrap-login',
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, WithValidation {
               private apiService: ApiService,
               private authState: AuthenticationStateService,
               private router: Router,
-              private toastr: ToastrService,
+              private toastrService: CustomToastrService,
               private translate: TranslateService,
               private errorUtils: ErrorUtilsService,
               private context: ContextService) {
@@ -44,9 +44,9 @@ export class LoginComponent implements OnInit, WithValidation {
         this.apiService.confirmEmail(token).subscribe(response => {
           const username = response.data['username'];
           if (username) {
-            this.person.username = username;
+            this.person.userName = username;
           }
-          this.toastr.success(this.translate.instant('email.confirmation.success.msg'), this.translate.instant('email.confirmation.success.title'));
+          this.toastrService.success(this.translate.instant('email.confirmation.success.msg'), this.translate.instant('email.confirmation.success.title'));
         });
       }
     });
@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit, WithValidation {
   onSubmit(): void {
     this.apiService.loginPerson(this.person).subscribe(response => {
       const authPerson = response.body;
-      this.toastr.success(this.translate.instant('login.successful'), `Hi, ${authPerson.firstName}`);
+      this.toastrService.success(this.translate.instant('login.successful'), `Hi, ${authPerson.firstName}`);
       this.authState.setState(new AuthenticationState(true, authPerson, this.generateAccessToken(response), {}));
     });
   }
@@ -102,6 +102,6 @@ export class LoginComponent implements OnInit, WithValidation {
       return jwtToken;
     }
 
-    return window.btoa(`${this.person.username}:${this.person.password}`);
+    return window.btoa(`${this.person.userName}:${this.person.password}`);
   }
 }

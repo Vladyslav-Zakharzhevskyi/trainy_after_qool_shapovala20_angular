@@ -6,6 +6,7 @@ import { TranslationModule } from './service/translation.module';
 
 import { RegistrationComponent } from './uicomponents/bootstrap-registration/registration.component';
 import { LoginComponent } from './uicomponents/bootstrap-login/login.component';
+import { BootstrapProfileComponent } from './uicomponents/bootstrap-profile/bootstrap-profile.component';
 import { PersonsComponent } from './uicomponents/persons/persons.component';
 
 import { ApplicationWrapperComponent } from './uicomponents/application-wrapper.component';
@@ -22,6 +23,7 @@ import { ResponseErrorInterceptor } from './api/interceptors/response-error-inte
   declarations: [
     ApplicationWrapperComponent,
     LoginComponent,
+    BootstrapProfileComponent,
     RegistrationComponent,
     ApplicationEntryPointComponent,
     PersonsComponent,

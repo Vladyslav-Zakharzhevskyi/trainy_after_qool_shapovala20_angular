@@ -8,7 +8,7 @@
         <div class="col-sm-12 input-group-lg">
           <label for="userName">{{'USER_NAME' | translate}}</label>
           <input id="userName" class="form-control" placeholder="{{'user.placeholder.name' | translate}}"
-                 [(ngModel)]="person.username"
+                 [(ngModel)]="person.userName"
                  [formControl]="formValidation.userName"
                  [ngClass]="getValidityClass('userName')" >
           <div class="invalid-feedback">{{getErrorMessage('userName', {patternType: 'username'})}}</div>

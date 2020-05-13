@@ -2,23 +2,16 @@ import { Injectable, Injector, NgModule } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { CustomToastrService } from '../../service/util/custom-toastr.service';
 
 @Injectable()
 export class ResponseErrorInterceptor implements HttpInterceptor {
 
   constructor(private injector: Injector,
-              public toasterService: ToastrService) {}
+              public toasterService: CustomToastrService) {}
 
-  private config: object = {
-    timeOut: 10000,
-    extendedTimeOut: 5000,
-    enableHtml: true,
-    tapToDismiss: false,
-    closeButton: true,
-    progressBar: true
-  };
+
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req)
@@ -29,7 +22,7 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
               console.log(err);
               this.showError(err);
             } catch (e) {
-              this.toasterService.error('An error occurred!', '', this.config);
+              this.toasterService.error('An error occurred!', '');
             }
           }
 
@@ -45,22 +38,21 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
       case '0':
         this.toasterService.error(
           `${this.getTranslate().instant('error.server.unavailable.msg', {url: err.url})}`,
-          `${this.getTranslate().instant('error.server.unavailable.title')}`,
-          this.config);
+          `${this.getTranslate().instant('error.server.unavailable.title')}`);
         break;
       case '1':
         if (status === 452 || status === 450) {
           this.showEmailTokenValidationError(status, err.error);
           return;
         }
-        this.toasterService.error(`${err.error.description}`, `${err.error.title} - Status: (${status})`, this.config);
+        this.toasterService.error(`${err.error.description}`, `${err.error.title} - Status: (${status})`);
         break;
       case '3':
         // Authentication error
         this.showAuthenticationError(err.error.statusCode, err.error.authenticationError);
         break;
       case '000':
-        this.toasterService.error(`url: ${err.url}`, `${err.error.error} - Status: (${err.error.status})`, this.config);
+        this.toasterService.error(`url: ${err.url}`, `${err.error.error} - Status: (${err.error.status})`);
         break;
       default:
         this.showUnrecognizedErrorMsg();
@@ -84,12 +76,12 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
     switch (status) {
       case 450:
         this.toasterService.error(this.getTranslate().instant('error.email.token.not.found', {token: err.data.token}),
-          `${this.getTranslate().instant('error.backend.title')}`, this.config);
+          `${this.getTranslate().instant('error.backend.title')}`);
         break;
       case 452:
         this.toasterService.error(this.getTranslate().instant('error.email.token.expired',
           {token: err.data.token, expiredDate: err.data.expiredDate}),
-          `${this.getTranslate().instant('error.backend.title')}`, this.config);
+          `${this.getTranslate().instant('error.backend.title')}`);
         break;
       default:
         this.showUnrecognizedErrorMsg();
@@ -97,7 +89,7 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
   }
 
   showUnrecognizedErrorMsg(): void {
-    this.toasterService.error('An error occurred!', '', this.config);
+    this.toasterService.error('An error occurred!', '');
   }
 
   // Get translate service by injector
@@ -111,19 +103,19 @@ export class ResponseErrorInterceptor implements HttpInterceptor {
         this.toasterService.error(
           this.getTranslate().instant('error.login.username.not.found.msg'),
           this.getTranslate().instant('error.login.username.not.found.title'),
-          this.config);
+          );
         break;
       case 322:
         this.toasterService.error(
           this.getTranslate().instant('error.login.wrong.password.msg'),
           this.getTranslate().instant('error.login.wrong.password.title'),
-          this.config);
+          );
         break;
       case 455:
         this.toasterService.error(
           this.getTranslate().instant('error.email.not.confirmed.msg'),
           this.getTranslate().instant('error.email.not.confirmed.title'),
-          this.config);
+          );
         break;
       default:
         this.showUnrecognizedErrorMsg();

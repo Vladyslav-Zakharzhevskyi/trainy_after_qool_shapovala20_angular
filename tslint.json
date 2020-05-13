@@ -17,6 +17,7 @@
       ]
     },
     "newline-before-return": false,
+    "prefer-const": false,
 
     "no-parameter-reassignment": false,
     "array-type": false,

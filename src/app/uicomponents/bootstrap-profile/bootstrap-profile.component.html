@@ -1,0 +1,83 @@
+<hr>
+
+<div class="container mt-5">
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="text-center">
+        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+        <h6>{{'user.label.upload.photo' | translate}}</h6>
+        <!--      <input type="file" class="text-center center-block file-upload" >-->
+      </div>
+      <hr>
+      <br>
+
+      <ul class="list-group">
+        <li class="list-group-item text-muted">{{'user.label.info' | translate}} <i class="fa fa-dashboard fa-1x"></i></li>
+        <li class="list-group-item text-left">
+          <span class="pull-left align-bottom material-icons"> account_circle </span>{{personProfile.firstName}} {{personProfile.lastName}}
+        </li>
+        <li class="list-group-item text-left">
+          <span class="pull-left align-bottom material-icons"> {{personProfile.positionId===-1 ? 'work_off' : 'work'}} </span>{{getPositionTitle(personProfile.positionId)}}
+        </li>
+        <li class="list-group-item text-left">
+          <span class="pull-left align-bottom material-icons">attach_money </span> {{personProfile.salary}} {{getCurrency(personProfile.currency)}}
+        </li>
+        <li class="list-group-item text-left">
+          <span class="pull-left align-bottom material-icons"> location_on </span>
+        </li>
+      </ul>
+
+    </div>
+    <div class="col-sm-9 pl-5">
+      <div class="row col-sm-12 pb-3">
+        <h4><label class="mb-0" for="userName">{{'USER_NAME' | translate}}</label></h4>
+        <input id="userName" type="text" class="form-control" [(ngModel)]="personProfile.userName" disabled="disabled">
+      </div>
+      <div class="row col-sm-12 p-0 pb-3">
+        <div class="col-sm-5">
+          <h4><label class="mb-0" for="firstName">{{'user.label.first.name' | translate}}</label></h4>
+          <input id="firstName" type="text" class="form-control" [(ngModel)]="personProfile.firstName">
+        </div>
+        <div class="col-sm-5">
+          <h4><label class="mb-0" for="lastName">{{'user.label.last.name' | translate}}</label></h4>
+          <input id="lastName" type="text" class="form-control" [(ngModel)]="personProfile.lastName">
+        </div>
+        <div class="col-sm-2">
+          <h4><label class="mb-0" for="age">{{'user.label.age' | translate}}</label></h4>
+          <input id="age" type="number" class="form-control" [(ngModel)]="personProfile.age">
+        </div>
+      </div>
+      <div class="row col-sm-12 pb-3">
+        <h4><label class="mb-0" for="email">{{'user.label.email' | translate}}</label></h4>
+        <input id="email" type="text" class="form-control" [(ngModel)]="personProfile.email">
+      </div>
+      <div class="row col-sm-12 pb-3">
+        <h4><label class="mb-0" for="job">{{'user.label.position' | translate}}</label></h4>
+        <select class="form-control" id="job" [(ngModel)]="personProfile.positionId">
+          <option [ngValue]="null" selected><i>Choose your position</i></option>
+          <option *ngFor="let pos of positions" [ngValue]="pos.id">{{pos.position}}</option>
+        </select>
+      </div>
+      <div class="row col-sm-12 p-0 pb-3">
+        <div class="col-sm-10">
+          <h4><label class="mb-0" for="salary">{{'user.label.salary' | translate}}</label></h4>
+          <input id="salary" type="number" class="form-control" [(ngModel)]="personProfile.salary">
+        </div>
+        <div class="col-sm-2">
+          <h4><label class="mb-0" for="currency">{{'user.label.currency' | translate}}</label></h4>
+          <select class="form-control" id="currency" [(ngModel)]="personProfile.currency">
+            <option [ngValue]="null" selected><i>Choose currency</i></option>
+            <option *ngFor="let curr of currency">{{curr}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row col-sm-12 pt-3">
+        <button class="btn btn-lg btn-success" (click)="updatePersonProfile()"><i class="glyphicon glyphicon-ok-sign"></i> {{'SAVE' | translate}}</button>
+        <a class="btn btn-lg mr-2" href="/applications" role="button">{{'CANCEL' | translate}}</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>

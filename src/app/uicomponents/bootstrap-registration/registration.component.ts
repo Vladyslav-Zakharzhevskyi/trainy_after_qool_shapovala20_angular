@@ -5,10 +5,10 @@ import { ErrorUtilsService } from '../../service/util/error-utils.service';
 import { Person } from '../../_models/person';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { WithValidation } from '../../_models/interfaces/with.validation';
-import {debounceTime, distinctUntilChanged, filter} from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { CustomToastrService } from '../../service/util/custom-toastr.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ import {debounceTime, distinctUntilChanged, filter} from 'rxjs/operators';
 export class RegistrationComponent implements OnInit, WithValidation {
 
   constructor(private apiService: ApiService,
-              private toastr: ToastrService,
+              private toastrService: CustomToastrService,
               private translate: TranslateService,
               private router: Router,
               private errorUtils: ErrorUtilsService) {
@@ -28,7 +28,7 @@ export class RegistrationComponent implements OnInit, WithValidation {
   // Allow only letters, at least one underscore
   public static userNamePattern = '^[a-z](?=.*[_]).*$';
   // Password should be at least 8 characters long and should contain one number,one character and one special character.
-  public static passwordPattern = '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$';
+  public static passwordPattern = '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&_])[A-Za-z\\d$@$!%*#?&_]{8,}$';
 
   person: Person = new Person();
 
@@ -134,8 +134,7 @@ export class RegistrationComponent implements OnInit, WithValidation {
     this.apiService.registerPerson(this.person).subscribe(resp => {
     const source = timer(1000);
     source.subscribe(value => {
-        this.toastr.info(this.translate.instant('email.confirm.message'), this.translate.instant('email.confirm.title'),
-          {timeOut: 10000, enableHtml: true});
+        this.toastrService.info(this.translate.instant('email.confirm.message'), this.translate.instant('email.confirm.title'));
         this.registrationInProgress = false;
         this.router.navigate(['/login']).then(r => {});
       });
