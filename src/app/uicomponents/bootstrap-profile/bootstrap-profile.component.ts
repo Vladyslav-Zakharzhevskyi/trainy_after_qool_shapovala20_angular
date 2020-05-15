@@ -12,8 +12,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class BootstrapProfileComponent implements OnInit {
   public personProfile: Person = new Person();
-  public positions: any;
-  public currency: any;
+  public positions: any = [];
+  public currency: any = [];
 
   constructor(private api: ApiService,
               private toastrService: CustomToastrService,
@@ -51,6 +51,7 @@ export class BootstrapProfileComponent implements OnInit {
   }
 
   getPositionTitle(positionId: number): void {
-    return this.positions.find(position => position.id === positionId).position;
+    const posObj = this.positions.find(position => position.id === positionId);
+    return posObj ? posObj.position : '';
   }
 }
