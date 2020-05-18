@@ -18,6 +18,7 @@
     },
     "newline-before-return": false,
     "prefer-const": false,
+    "comment-type": [false, "doc"],
 
     "no-parameter-reassignment": false,
     "array-type": false,

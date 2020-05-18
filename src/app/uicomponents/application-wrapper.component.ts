@@ -39,7 +39,9 @@ export class ApplicationWrapperComponent {
     });
   }
 
-
+  initMap(): void {
+    console.log('Init map root');
+  }
 
 
 }

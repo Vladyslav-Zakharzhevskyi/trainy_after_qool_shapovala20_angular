@@ -24,6 +24,7 @@
   "user.label.info": "Информация:",
   "user.label.phone" : "Телефон:",
   "user.label.city" : "Место проживания:",
+  "user.label.address" : "Адрес:",
   "user.placeholder.name" : "Введите логин",
   "user.placeholder.first.name" : "Введите имя",
   "user.placeholder.last.name" : "Введите фамилию",

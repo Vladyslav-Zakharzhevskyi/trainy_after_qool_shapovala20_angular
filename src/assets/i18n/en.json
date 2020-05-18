@@ -23,6 +23,7 @@
   "user.label.info": "Info:",
   "user.label.phone" : "Mobile phone:",
   "user.label.city" : "City:",
+  "user.label.address" : "Address:",
   "user.placeholder.name" : "Enter username",
   "user.placeholder.first.name" : "Enter first name",
   "user.placeholder.last.name" : "Enter last name",

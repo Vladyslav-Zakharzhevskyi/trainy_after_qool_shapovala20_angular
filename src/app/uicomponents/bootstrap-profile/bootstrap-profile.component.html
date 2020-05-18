@@ -24,7 +24,7 @@
           <span class="pull-left align-bottom material-icons">attach_money </span> {{personProfile.salary}} {{getCurrency(personProfile.currency)}}
         </li>
         <li class="list-group-item text-left">
-          <span class="pull-left align-bottom material-icons"> location_on </span>
+          <span class="pull-left align-bottom material-icons"> location_on </span> {{personProfile.address}}
         </li>
       </ul>
 
@@ -72,6 +72,10 @@
           </select>
         </div>
       </div>
+      <div class="row col-sm-12 pb-3">
+        <h4><label class="mb-0" for="address_autocomplete">{{'user.label.address' | translate}}</label></h4>
+        <input id="address_autocomplete" type="text" class="form-control" [(ngModel)]="personProfile.address">
+      </div>
       <div class="row col-sm-12 pt-3">
         <button class="btn btn-lg btn-success" (click)="updatePersonProfile()"><i class="glyphicon glyphicon-ok-sign"></i> {{'SAVE' | translate}}</button>
         <a class="btn btn-lg mr-2" href="/applications" role="button">{{'CANCEL' | translate}}</a>
@@ -80,4 +84,7 @@
     </div>
 
   </div>
+<!--  <div id="gmap" name="googlemaps" style="width: 100%; height: 400px">-->
+<!--    <google-map></google-map>-->
+<!--  </div>-->
 </div>

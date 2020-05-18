@@ -1,4 +1,6 @@
-import { Component , OnInit } from '@angular/core';
+/// <reference types="@types/googlemaps" />
+
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api/api.service';
 import { Person } from '../../_models/person';
 import { CustomToastrService } from '../../service/util/custom-toastr.service';
@@ -10,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './bootstrap-profile.component.html',
   styleUrls: ['./bootstrap-profile.component.css']
 })
-export class BootstrapProfileComponent implements OnInit {
+export class BootstrapProfileComponent implements OnInit, AfterViewInit {
   public personProfile: Person = new Person();
   public positions: any = [];
   public currency: any = [];
@@ -27,6 +29,12 @@ export class BootstrapProfileComponent implements OnInit {
       this.personProfile = person;
     });
   }
+
+  ngAfterViewInit(): void {
+    this.initGoogleMapsAutocompleteAddress();
+  }
+
+
 
   initProfilePage(): void {
     this.api.getServerData(RequestType.ENUM, 'Currency').subscribe(response => this.currency = response);
@@ -53,5 +61,19 @@ export class BootstrapProfileComponent implements OnInit {
   getPositionTitle(positionId: number): void {
     const posObj = this.positions.find(position => position.id === positionId);
     return posObj ? posObj.position : '';
+  }
+
+  initGoogleMapsAutocompleteAddress(): void {
+    const autocompleteInput = document.getElementById('address_autocomplete') as HTMLInputElement;
+
+    let autocomplete = new google.maps.places.Autocomplete(autocompleteInput, {types: ['geocode']});
+    autocomplete.setFields(['address_component']);
+
+    autocomplete.setComponentRestrictions({country: ['ua']});
+
+    // tslint:disable-next-line:typedef
+    autocomplete.addListener('place_changed', function() {
+      console.log(`Place changed to: ${autocomplete.getPlace()}`);
+    });
   }
 }

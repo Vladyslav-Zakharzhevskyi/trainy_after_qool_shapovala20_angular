@@ -18,6 +18,7 @@ import { AuthenticationListenerService } from './system/authentication-listener.
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResponseErrorInterceptor } from './api/interceptors/response-error-interceptor';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ResponseErrorInterceptor } from './api/interceptors/response-error-inte
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    GoogleMapsModule,
     HttpClientModule,
     RoutingModule,
     TranslationModule,
