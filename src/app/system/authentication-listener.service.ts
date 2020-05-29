@@ -27,7 +27,7 @@ export class AuthenticationListenerService {
       // Login
       if (authState.userIsLoggedIn && authState.authPerson) {
         console.log('User has been Logged In!');
-        this.context.setAccessToken(authState.authPerson, authState.accessToken);
+        this.context.setAccessToken(authState.accessToken);
         this.context.authenticate(authState.authPerson);
         this.router.navigate(['/applications']);
       } else {

@@ -38,6 +38,7 @@
   "user.placeholder.cost": "Цена",
   "user.placeholder.room.count": "Кол-во комнат",
   "user.placeholder.floor.number": "Этаж",
+  "ask.placeholder.question": "Что бы вы хотели добавить на этот сайт?",
   "error.backend.title": "Ошибка на Серверной стороне!",
   "error.required" : "Поле обезательно для заполнения",
   "error.minlength": "Минимальная длина {{minLength}} символа-ов",

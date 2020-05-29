@@ -1,5 +1,6 @@
 export class Person {
 
+  public id: string;
   public userName: string;
   public firstName: string;
   public lastName: string;

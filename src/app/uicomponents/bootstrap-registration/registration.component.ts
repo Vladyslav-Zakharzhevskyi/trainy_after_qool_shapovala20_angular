@@ -52,7 +52,7 @@ export class RegistrationComponent implements OnInit, WithValidation {
     this.formValidation = {
       userName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20),
                                      Validators.pattern(RegistrationComponent.userNamePattern)]),
-      firstName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+      firstName: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]),
       lastName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [this.checkPasswordsEqualsPass.bind(this), Validators.pattern(RegistrationComponent.passwordPattern)]),

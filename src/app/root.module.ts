@@ -9,7 +9,7 @@ import { LoginComponent } from './uicomponents/bootstrap-login/login.component';
 import { BootstrapProfileComponent } from './uicomponents/bootstrap-profile/bootstrap-profile.component';
 import { PersonsComponent } from './uicomponents/persons/persons.component';
 
-import { ApplicationWrapperComponent } from './uicomponents/application-wrapper.component';
+import { ApplicationWrapperComponent } from './uicomponents/basecomponent/application-wrapper.component';
 import { ApplicationEntryPointComponent } from './uicomponents/applications/application-entry-point.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RequestAuthTokenInterceptor } from './api/interceptors/request-auth-token-interceptor.service';
@@ -19,6 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResponseErrorInterceptor } from './api/interceptors/response-error-interceptor';
 import { GoogleMapsModule } from '@angular/google-maps';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: RequestAuthTokenInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ResponseErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ResponseErrorInterceptor, multi: true},
+    LoginComponent,
   ],
 
   bootstrap: [ApplicationWrapperComponent]

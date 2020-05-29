@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Person} from '../_models/person';
-import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
-import {ResponseEntity} from '../_models/response-entity';
-import {RequestType} from '../_models/request-type.enum';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Person } from '../_models/person';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { ResponseEntity } from '../_models/response-entity';
+import { RequestType } from '../_models/request-type.enum';
+import { Offer } from '../_models/offer';
 
 const HOST = environment.apiUrl;
 
@@ -22,7 +23,7 @@ export class ApiService {
 
 
   public getApplicationSettings(): Observable<any> {
-    return this.httpClient.get<any>(HOST + '/api/getApplicationSettings', { headers: ApiService.SKIP_INTERCEPTOR_HEADER });
+    return this.httpClient.get<any>(`${HOST}/api/getApplicationSettings`, { headers: ApiService.SKIP_INTERCEPTOR_HEADER });
   }
 
   public loginPerson(person: Person): Observable<HttpResponse<Person>>  {
@@ -31,12 +32,12 @@ export class ApiService {
     return this.httpClient.post<Person>(url, {}, { observe: 'response' });
   }
 
-  public getPersons() {
-    return this.httpClient.get(HOST + '/api/person/all');
+  public getPersons(): Observable<Person[]> {
+    return this.httpClient.get<Person[]>(`${HOST}/api/person/all`);
   }
 
   public checkUsernameAvailability(username: string): Observable<object> {
-    return this.httpClient.post(HOST + '/api/person/checkUserNameAvailability/' + username, {});
+    return this.httpClient.post(`${HOST}/api/person/checkUserNameAvailability/${username}`, {});
   }
 
   public confirmEmail(token: string): Observable<ResponseEntity> {
@@ -44,15 +45,31 @@ export class ApiService {
   }
 
   public registerPerson(person: Person): Observable<Person> {
-    return this.httpClient.post<Person>(HOST + '/api/person/register', person);
+    return this.httpClient.post<Person>(`${HOST}/api/person/register`, person);
   }
 
   public getCurrentPerson(): Observable<Person> {
-    return this.httpClient.get<Person>(HOST + '/api/person/');
+    return this.httpClient.get<Person>(`${HOST}/api/person/`);
   }
 
   public savePerson(person: Person): Observable<Person> {
     return this.httpClient.put<Person>(`${HOST}/api/person/`, person);
+  }
+
+  public getProposalsToImplement(): Observable<Offer[]> {
+    return this.httpClient.get<Offer[]>(`${HOST}/api/person/offer`);
+  }
+
+  public addProposal(offer: Offer): Observable<Offer[]> {
+    return this.httpClient.post<Offer[]>(`${HOST}/api/person/offer?message=${offer.message}&anonymousPost=${offer.anonymousPost}`, {});
+  }
+
+  public updateProposal(offer: Offer): Observable<Offer[]> {
+    return this.httpClient.put<Offer[]>(`${HOST}/api/person/offer/${offer.id}/?message=${offer.message}&anonymousPost=${offer.anonymousPost}`, {});
+  }
+
+  public deleteProposal(offerId: number): Observable<Offer[]> {
+    return this.httpClient.delete<Offer[]>(`${HOST}/api/person/offer/${offerId}`);
   }
 
   public getServerData(type: RequestType, resource: string): Observable<any> {

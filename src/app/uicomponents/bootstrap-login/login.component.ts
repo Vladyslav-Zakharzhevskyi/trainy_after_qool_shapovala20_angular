@@ -10,6 +10,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { RegistrationComponent } from '../bootstrap-registration/registration.component';
 import { CustomToastrService } from '../../service/util/custom-toastr.service';
+import { filter } from 'rxjs/operators';
+import { RouteParamsReserved } from '../../service/const/route-params-reserved.enum';
 
 @Component({
   selector: 'application-bootstrap-login',
@@ -26,7 +28,7 @@ export class LoginComponent implements OnInit, WithValidation {
               private translate: TranslateService,
               private errorUtils: ErrorUtilsService,
               private context: ContextService) {
-    this.confirmEmail();
+    this.listenForEmailConfirmationToken();
   }
 
   person = new Person();
@@ -36,19 +38,17 @@ export class LoginComponent implements OnInit, WithValidation {
     password: FormControl;
   };
 
-  private confirmEmail(): void {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      // Do call to Confirm email
-      const token = params['token'];
-      if (token) {
-        this.apiService.confirmEmail(token).subscribe(response => {
-          const username = response.data['username'];
-          if (username) {
-            this.person.userName = username;
-          }
-          this.toastrService.success(this.translate.instant('email.confirmation.success.msg'), this.translate.instant('email.confirmation.success.title'));
-        });
-      }
+  private listenForEmailConfirmationToken(): void {
+    const EMAIL_CONFIRM_PARAM = this.activatedRoute.queryParams.pipe(filter(params => params[RouteParamsReserved.RESERVED_URL_PARAM_EMAIL_CONFIRMATION]));
+
+    EMAIL_CONFIRM_PARAM.subscribe((params: Params)  => {
+      this.apiService.confirmEmail(params[RouteParamsReserved.RESERVED_URL_PARAM_EMAIL_CONFIRMATION]).subscribe(response => {
+        const username = response.data['username'];
+        if (username) {
+          this.person.userName = username;
+        }
+        this.toastrService.success(this.translate.instant('email.confirmation.success.msg'), this.translate.instant('email.confirmation.success.title'));
+      });
     });
   }
 
@@ -90,18 +90,38 @@ export class LoginComponent implements OnInit, WithValidation {
 
   onSubmit(): void {
     this.apiService.loginPerson(this.person).subscribe(response => {
-      const authPerson = response.body;
-      this.toastrService.success(this.translate.instant('login.successful'), `Hi, ${authPerson.firstName}`);
-      this.authState.setState(new AuthenticationState(true, authPerson, this.generateAccessToken(response), {}));
+      let token = this.getAccessToken(response.headers.get(ContextService.JWT_HEADER_NAME));
+      let person = response.body;
+      this.authenticate(token, person);
     });
   }
 
-  private generateAccessToken(response: any): string {
-    const jwtToken = response.headers.get(ContextService.JWT_HEADER_NAME);
-    if (jwtToken) {
-      return jwtToken;
+  public authenticate(token: string, person?: Person): void {
+    if (person) {
+      this.authState.setState(new AuthenticationState(true, person, token, {}));
+      this.showWelcomeMessage(person);
+      return;
     }
 
-    return window.btoa(`${this.person.userName}:${this.person.password}`);
+    // 1. Correct behavioral is:
+    // Add Promise to getting application settings method which is currently running in background
+    // Execute api call below after
+    // TODO Add correct behavioral
+    // 2. mega hack below: --//(-_-)\\ //(-_-)\\ //(-_-)\\
+    this.context.setApplicationSettings({authenticationType: 'jwt'});
+    // Save access token to context
+    this.context.setAccessToken(token);
+    this.apiService.getCurrentPerson().subscribe(person =>  {
+      console.log(`External Authentication with token: ${token}. User: ${person.userName}`);
+      this.authenticate(token, person);
+    });
+  }
+
+  public getAccessToken(token: string): string {
+    return token ? token : window.btoa(`${this.person.userName}:${this.person.password}`);
+  }
+
+  private showWelcomeMessage(person: Person): void {
+    this.toastrService.success(this.translate.instant('login.successful'), `Hi, ${person.firstName}`);
   }
 }

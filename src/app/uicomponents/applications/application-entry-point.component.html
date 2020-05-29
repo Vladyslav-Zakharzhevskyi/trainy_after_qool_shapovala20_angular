@@ -5,4 +5,61 @@
     <button type="button" class="btn btn-light" (click)="logout();">{{'LOGOUT' | translate}}</button>
   </div>
 
+  <div id="form-wrapper" data-name="page-wrapper" class="mt-4" *ngIf="responseReceived">
+    <div class="overflow-auto p-3 mb-5 md-0" style="min-height: 600px; max-height: 620px;"> <!--bg-light-->
+      <div id="message-container" class="" *ngIf="offers.length>0; else leaveFirstMessageBlock">
+        <div *ngFor="let offer of offers" class="ui center aligned info message segment proposal">
+          <div *ngIf="!showAnimation; else loadingInProgressBlock">
+            <div class="ui header mb-3">
+              {{offer.message}}
+              <span [hidden]="!securityContext.hasEditRightsYouOwn(offer.authorId)" class="ui icon mr-0 float-right">
+                <span data-tooltip="Edit proposal" data-position="top right"
+                      style="font-size: 0.7em !important;" class="cursor-pointer mr-2" (click)="editOffer(offer);">Edit
+                </span>
+                <span data-tooltip="Delete" data-position="top right" data-inverted="">
+                  <i class="cursor-pointer tiny trash icon" (click)="deleteOffer(offer.id);"></i>
+                </span>
+              </span>
+            </div>
+            <div class="text-right">
+              Posted by: <b>{{offer.author}}</b> at {{getDate(offer) | date:'d EEEE - HH:mm'}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Loading in progress template-->
+      <ng-template #loadingInProgressBlock>
+        <div class="ui fluid placeholder">
+          <div class="line"></div><div class="line"></div><div class="line"></div>
+        </div>
+      </ng-template>
+      <!--Empty Offers list template-->
+      <ng-template #leaveFirstMessageBlock>
+        <div class="ui placeholder segment">
+          <div class="ui icon header">
+            <i class="search icon"></i>
+            We don't have any idea yet, please add new one
+          </div>
+          <div class="inline">
+            <div class="ui primary button">Leave message</div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+
+    <form class="ui form mt-5">
+      <textarea name="message" placeholder="{{'ask.placeholder.question' | translate}}" style="min-height:100px" rows="7" [(ngModel)]="currentOffer.message"></textarea>
+
+      <div class="ui toggle checkbox mt-2">
+        <input name="anonymousPost" type="checkbox" [(ngModel)]="currentOffer.anonymousPost">
+        <label>Post as Anonymous</label>
+      </div>
+      <div class="inline mt-1">
+        <div class="ui primary button" (click)="postOffer();">{{currentOffer.id ? 'Edit' : 'Post'}} Proposal</div>
+        <div *ngIf="currentOffer.id" class="ui button" (click)="cancelEditing();">Cancel</div>
+      </div>
+    </form>
+  </div>
+
 </div>

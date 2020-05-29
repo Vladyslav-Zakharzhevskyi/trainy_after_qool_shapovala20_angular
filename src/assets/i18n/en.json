@@ -37,6 +37,7 @@
   "user.placeholder.cost": "Enter cost",
   "user.placeholder.room.count": "Enter count room",
   "user.placeholder.floor.number": "Enter floor number",
+  "ask.placeholder.question": "Please leave here any idea that you want to be added to this site",
   "error.backend.title": "Back-end error!",
   "error.required" : "You must enter value",
   "error.minlength": "Length of the field is not match. Min length should be at least {{minLength}} symbols.",

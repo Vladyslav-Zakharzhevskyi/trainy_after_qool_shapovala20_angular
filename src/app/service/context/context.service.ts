@@ -16,7 +16,7 @@ export class ContextService {
     window.sessionStorage.setItem(this.CURRENT_USER, JSON.stringify(person));
   }
 
-  public setAccessToken(person: Person, accessToken: string): void {
+  public setAccessToken(accessToken: string): void {
     window.sessionStorage.setItem(this.JWT_TOKEN, accessToken);
   }
 
