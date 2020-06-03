@@ -12,6 +12,7 @@
   "USER_NAME": "User Name:",
   "PASSWORD": "Password:",
   "PASSWORD_REPEAT" : "Repeat Password:",
+  "SHOW_USERS" : "Show Users",
   "user.label.first.name" : "First name:",
   "user.label.last.name" : "Last name:",
   "user.label.email" : "Email:",

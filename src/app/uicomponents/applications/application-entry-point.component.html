@@ -1,8 +1,13 @@
 <div id="app-select-page" class="container-fluid" >
 
   <div class="row ml-2 mt-2">
-    <a class="btn btn-primary mr-2" href="/profile" role="button">Profile</a>
-    <button type="button" class="btn btn-light" (click)="logout();">{{'LOGOUT' | translate}}</button>
+    <button type="button" class="btn btn-primary" (click)="this.route.navigateByUrl('/profile');">Profile</button>
+    <button type="button" class="btn btn-light ml-2" (click)="logout();">
+      {{'LOGOUT' | translate}}
+    </button>
+    <button type="button" class="btn btn-success ml-5" (click)="this.route.navigateByUrl('/users');">
+      {{'SHOW_USERS' | translate}}
+    </button>
   </div>
 
   <div id="form-wrapper" data-name="page-wrapper" class="mt-4" *ngIf="responseReceived">

@@ -13,6 +13,7 @@
   "USER_NAME": "Имя пользователя:",
   "PASSWORD": "Пароль:",
   "PASSWORD_REPEAT" : "Введите пароль повторно:",
+  "SHOW_USERS" : "Пользователи",
   "user.label.first.name" : "Имя:",
   "user.label.last.name" : "Фамилия:",
   "user.label.email" : "E-mail aдресc:",

@@ -15,4 +15,9 @@ export class SecurityContext {
     }
     return false;
   }
+
+  isUserAdmin(): boolean {
+    return this.context.getCurrentLoggedInUser()
+      .roles.some(role => role === 'ADMIN');
+  }
 }

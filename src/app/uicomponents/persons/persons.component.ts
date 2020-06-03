@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from "../../api/api.service";
+import { ApiService } from '../../api/api.service';
+import { Person } from '../../_models/person';
 
 @Component({
   selector: 'app-persons',
@@ -8,13 +9,11 @@ import { ApiService } from "../../api/api.service";
 })
 export class PersonsComponent implements OnInit {
 
-  public persons: Object;
+  public persons: Person[];
 
   constructor(private apiService: ApiService) { }
 
-  ngOnInit(): void {}
-
-  getPersons(): void {
+  ngOnInit(): void {
     this.apiService.getPersons().subscribe((data) => {
       this.persons = data;
     });

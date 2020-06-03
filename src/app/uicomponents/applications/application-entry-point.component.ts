@@ -27,7 +27,7 @@ export class ApplicationEntryPointComponent implements OnInit {
   public showAnimation = true;
 
   constructor(public securityContext: SecurityContext,
-              private route: Router,
+              public route: Router,
               private authState: AuthenticationStateService,
               private api: ApiService,
               private toastrService: CustomToastrService,

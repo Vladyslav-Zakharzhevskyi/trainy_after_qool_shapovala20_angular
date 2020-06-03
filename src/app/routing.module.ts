@@ -5,12 +5,14 @@ import { ApplicationEntryPointComponent } from './uicomponents/applications/appl
 import { RegistrationComponent } from './uicomponents/bootstrap-registration/registration.component';
 import { LoginComponent } from './uicomponents/bootstrap-login/login.component';
 import { BootstrapProfileComponent } from './uicomponents/bootstrap-profile/bootstrap-profile.component';
+import { PersonsComponent } from './uicomponents/persons/persons.component';
 
 
 const routes: Routes = [
   { path: 'registration', component: RegistrationComponent},
   { path: 'login', component: LoginComponent},
   { path: 'profile', component: BootstrapProfileComponent},
+  { path: 'users', component: PersonsComponent},
   { path: 'applications', component:  ApplicationEntryPointComponent},
   { path: '**', component: LoginComponent}
 ];

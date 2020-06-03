@@ -1,18 +1,38 @@
-
 <div class="line-element">
-  <button mat-raised-button color="primary" id="get-persons-req" (click)="getPersons()"> Get Persons </button>
-</div>
-
-<div class="line-element">
-  <div id="persons-wrapper" *ngIf="persons != 0; then personsBlock else emptyPersonsBlock"></div>
+  <div id="persons-wrapper" *ngIf="persons.length > 0; then personsBlock else emptyPersonsBlock"></div>
   <ng-template #personsBlock>
-    <div id="persons" class="information" *ngFor="let person of persons">
-      <span>{{ person.firstName }} - </span>
-      <span>{{ person.lastName }} - </span>
-      <span>{{ person.age }} - </span>
-      <span>{{ person.salary }} - </span>
-      <span>{{ person.currency }}</span>
-    </div>
+    <table class="ui selectable celled table">
+      <thead>
+      <tr>
+        <th>User Name</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th>Email Confirmed</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr id="person-row-{{i}}" [ngClass]="person.isEmailConfirmed ? 'positive' : 'negative'" *ngFor="let person of persons; index as i" >
+        <td data-label="User Name">{{ person.userName }}</td>
+        <td data-label="Name">{{ person.firstName }}</td>
+        <td data-label="Surname">{{ person.lastName }}</td>
+        <td data-label="Age">{{ person.age }}</td>
+        <td data-label="Email">{{ person.email }}</td>
+        <td data-label="Roles">{{ person.roles }}</td>
+        <td data-label="Email Confirmed">{{ person.isEmailConfirmed ? 'Email Confirmed' : 'Email didn\'t Confirmed' }}</td>
+      </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>{{persons.length}} Persons registered!</th>
+          <th></th><th></th><th></th><th></th><th></th><th></th>
+        </tr>
+      </tfoot>
+    </table>
   </ng-template>
-  <ng-template #emptyPersonsBlock>  <div>No Persons attached!</div> </ng-template>
+
+  <ng-template #emptyPersonsBlock>  <div class="ui info message mt-5"> You have no rights to see users, please contact to Vladyslav to get access.</div>
+  </ng-template>
 </div>
