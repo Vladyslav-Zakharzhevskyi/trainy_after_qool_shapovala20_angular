@@ -1,7 +1,9 @@
 <div id="app-select-page" class="container-fluid" >
 
   <div class="row ml-2 mt-2">
-    <button type="button" class="btn btn-primary" (click)="this.route.navigateByUrl('/profile');">Profile</button>
+    <button type="button" class="btn btn-primary" (click)="this.route.navigateByUrl('/profile');">
+      {{"PROFILE" | translate}}
+    </button>
     <button type="button" class="btn btn-light ml-2" (click)="logout();">
       {{'LOGOUT' | translate}}
     </button>
@@ -44,11 +46,12 @@
         <div class="ui placeholder segment">
           <div class="ui icon header">
             <i class="search icon"></i>
-            We don't have any idea yet, please add new one
+            {{"LEAVE_PROPOSAL_DESCRIPTION_SMALL" | translate}}
+            <div class="inline ui huge header">
+              <div class="ui">{{"LEAVE_PROPOSAL_DESCRIPTION_MIDDLE" | translate}}</div>
+            </div>
           </div>
-          <div class="inline">
-            <div class="ui primary button">Leave message</div>
-          </div>
+
         </div>
       </ng-template>
     </div>
@@ -58,11 +61,11 @@
 
       <div class="ui toggle checkbox mt-2">
         <input name="anonymousPost" type="checkbox" [(ngModel)]="currentOffer.anonymousPost">
-        <label>Post as Anonymous</label>
+        <label>{{"ANONYMOUS_POST_LABEL" | translate}}</label>
       </div>
       <div class="inline mt-1">
-        <div class="ui primary button" (click)="postOffer();">{{currentOffer.id ? 'Edit' : 'Post'}} Proposal</div>
-        <div *ngIf="currentOffer.id" class="ui button" (click)="cancelEditing();">Cancel</div>
+        <div class="ui primary button" (click)="postOffer();">{{getSendProposalBtnText()}}</div>
+        <div *ngIf="currentOffer.id" class="ui button" (click)="cancelEditing();">{{"CANCEL" | translate}}</div>
       </div>
     </form>
   </div>

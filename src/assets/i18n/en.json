@@ -5,6 +5,7 @@
   "LANG_TITLE": "Language",
   "LOGIN": "Login",
   "LOGOUT": "Logout",
+  "PROFILE": "Profile",
   "REGISTRATION": "Registration",
   "LOGIN_PAGE": "Login Page",
   "REGISTRATION_PAGE": "Registration Page",
@@ -70,6 +71,22 @@
   "CANCEL": "Cancel",
   "BTN_NEXT": "Next",
   "BTN_PREV": "Previously",
+
+  "REGISTERED_USERS": "Registered Users",
+
+  "LEAVE_PROPOSAL_DESCRIPTION_SMALL" : "We are looking for an idea...",
+  "LEAVE_PROPOSAL_DESCRIPTION_MIDDLE" : "What do you want to see to be added to this site. Please share you an idea!",
+  "ANONYMOUS_POST_LABEL" :  "Post anonymously",
+  "EDIT_PROPOSAL_BTN_TEXT": "Edit Proposal",
+  "ADD_PROPOSAL_BTN_TEXT": "Add Proposal",
+
+  "user.username.title": "User Name",
+  "user.name.title": "Name",
+  "user.surname.title": "Surname",
+  "user.age.title": "Age",
+  "user.email.title": "Email",
+  "user.roles.title": "Assigned Roles",
+  "user.email.confirmed.title": "Email confirmed",
 
   "FOOTER_BLOCK": "Application uses as a part of home-education process. To achieve short term purposes. See <a href='applications'><span>Rental Application</span></a>. Involving to to both develop part: Front and Back as well.",
   "ADDRESS": "st. Zoological, 12/15"

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ApiService } from '../../api/api.service';
 import { AuthenticationState, AuthenticationStateService } from '../../system/authentication-state.service';
 import { timer } from 'rxjs';
@@ -7,9 +7,10 @@ import { Offer } from '../../_models/offer';
 import { environment } from '../../../environments/environment';
 import { CustomToastrService } from '../../service/util/custom-toastr.service';
 import { SecurityContext } from '../../system/security-context.service';
-import {LoginComponent} from '../bootstrap-login/login.component';
-import {filter} from 'rxjs/operators';
-import {RouteParamsReserved} from '../../service/const/route-params-reserved.enum';
+import { LoginComponent } from '../bootstrap-login/login.component';
+import { filter } from 'rxjs/operators';
+import { RouteParamsReserved } from '../../service/const/route-params-reserved.enum';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'application-application-entry-point',
@@ -32,7 +33,8 @@ export class ApplicationEntryPointComponent implements OnInit {
               private api: ApiService,
               private toastrService: CustomToastrService,
               private activatedRoute: ActivatedRoute,
-              private loginComponent: LoginComponent) {
+              private loginComponent: LoginComponent,
+              private translateService: TranslateService) {
     this.ensureExternalLogin();
   }
 
@@ -109,4 +111,10 @@ export class ApplicationEntryPointComponent implements OnInit {
   getDate(offer: Offer): string {
     return offer.dateUpdated ? offer.dateUpdated : offer.dateCreated;
   }
+
+  getSendProposalBtnText(): string {
+    let key = this.currentOffer.id ? 'EDIT_PROPOSAL_BTN_TEXT' : 'ADD_PROPOSAL_BTN_TEXT';
+    return this.translateService.instant(key);
+  }
+
 }

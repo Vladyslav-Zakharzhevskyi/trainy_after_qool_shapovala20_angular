@@ -9,7 +9,7 @@ import { Person } from '../../_models/person';
 })
 export class PersonsComponent implements OnInit {
 
-  public persons: Person[];
+  public persons: Person[] = [];
 
   constructor(private apiService: ApiService) { }
 

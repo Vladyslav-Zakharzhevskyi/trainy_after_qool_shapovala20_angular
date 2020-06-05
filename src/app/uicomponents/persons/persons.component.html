@@ -1,38 +1,49 @@
-<div class="line-element">
-  <div id="persons-wrapper" *ngIf="persons.length > 0; then personsBlock else emptyPersonsBlock"></div>
-  <ng-template #personsBlock>
-    <table class="ui selectable celled table">
-      <thead>
-      <tr>
-        <th>User Name</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Age</th>
-        <th>Email</th>
-        <th>Roles</th>
-        <th>Email Confirmed</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr id="person-row-{{i}}" [ngClass]="person.isEmailConfirmed ? 'positive' : 'negative'" *ngFor="let person of persons; index as i" >
-        <td data-label="User Name">{{ person.userName }}</td>
-        <td data-label="Name">{{ person.firstName }}</td>
-        <td data-label="Surname">{{ person.lastName }}</td>
-        <td data-label="Age">{{ person.age }}</td>
-        <td data-label="Email">{{ person.email }}</td>
-        <td data-label="Roles">{{ person.roles }}</td>
-        <td data-label="Email Confirmed">{{ person.isEmailConfirmed ? 'Email Confirmed' : 'Email didn\'t Confirmed' }}</td>
-      </tr>
-      </tbody>
-      <tfoot>
+<div id="users_wrapper" class="container-fluid">
+
+  <h2 class="ui header mt-4">
+    <i class="circular users icon"></i>
+    <div class="content">
+      {{"REGISTERED_USERS" | translate}}
+    </div>
+  </h2>
+
+
+  <div class="line-element mt-2">
+    <div id="persons-wrapper" *ngIf="persons.length > 0; then personsBlock else emptyPersonsBlock"></div>
+    <ng-template #personsBlock>
+      <table class="ui selectable celled table">
+        <thead>
+        <tr>
+          <th>{{"user.username.title" | translate}}</th>
+          <th>{{"user.name.title" | translate}}</th>
+          <th>{{"user.surname.title" | translate}}</th>
+          <th>{{"user.age.title" | translate}}</th>
+          <th>{{"user.email.title" | translate}}</th>
+          <th>{{"user.roles.title" | translate}}</th>
+          <th>{{"user.email.confirmed.title" | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="person-row-{{i}}" [ngClass]="person.isEmailConfirmed ? 'positive' : 'negative'" *ngFor="let person of persons; index as i" >
+          <td data-label="User Name">{{ person.userName }}</td>
+          <td data-label="Name">{{ person.firstName }}</td>
+          <td data-label="Surname">{{ person.lastName }}</td>
+          <td data-label="Age">{{ person.age }}</td>
+          <td data-label="Email">{{ person.email }}</td>
+          <td data-label="Roles">{{ person.roles }}</td>
+          <td data-label="Email Confirmed">{{ person.isEmailConfirmed ? 'Email Confirmed' : 'Email didn\'t Confirmed' }}</td>
+        </tr>
+        </tbody>
+        <tfoot>
         <tr>
           <th>{{persons.length}} Persons registered!</th>
           <th></th><th></th><th></th><th></th><th></th><th></th>
         </tr>
-      </tfoot>
-    </table>
-  </ng-template>
+        </tfoot>
+      </table>
+    </ng-template>
 
-  <ng-template #emptyPersonsBlock>  <div class="ui info message mt-5"> You have no rights to see users, please contact to Vladyslav to get access.</div>
-  </ng-template>
+    <ng-template #emptyPersonsBlock>  <div class="ui info message mt-5"> You have no rights to see users, please contact to Vladyslav to get access.</div>
+    </ng-template>
+  </div>
 </div>

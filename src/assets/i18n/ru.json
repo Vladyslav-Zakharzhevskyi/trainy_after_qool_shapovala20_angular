@@ -5,6 +5,7 @@
   "LANG_TITLE": "Язык",
   "LOGIN": "Вход",
   "LOGOUT": "Выйти",
+  "PROFILE": "Профиль",
   "DO_LOGIN": "Войти",
   "LOGIN_PAGE": "Страница входа",
   "REGISTRATION_PAGE": "Страница регистрации",
@@ -39,7 +40,7 @@
   "user.placeholder.cost": "Цена",
   "user.placeholder.room.count": "Кол-во комнат",
   "user.placeholder.floor.number": "Этаж",
-  "ask.placeholder.question": "Что бы вы хотели добавить на этот сайт?",
+  "ask.placeholder.question": "Что бы вы хотели видеть на этом сайте?",
   "error.backend.title": "Ошибка на Серверной стороне!",
   "error.required" : "Поле обезательно для заполнения",
   "error.minlength": "Минимальная длина {{minLength}} символа-ов",
@@ -71,6 +72,23 @@
   "CANCEL": "Закрыть",
   "BTN_NEXT": "Далее",
   "BTN_PREV": "Назад",
+
+  "REGISTERED_USERS": "Зарегистрированные Пользователи",
+
+  "LEAVE_PROPOSAL_DESCRIPTION_SMALL" : "Мы ищем идеи, которые могут быть реализованы на этом сайте",
+  "LEAVE_PROPOSAL_DESCRIPTION_MIDDLE" : "Какой функционал вы бы хотели что бы был добавлен на этот сайт?",
+  "ANONYMOUS_POST_LABEL" :  "Отправить анонимно",
+  "EDIT_PROPOSAL_BTN_TEXT": "Сохранить",
+  "ADD_PROPOSAL_BTN_TEXT": "Добавить предложение",
+
+  "user.username.title": "Имя пользователя",
+  "user.name.title": "Имя",
+  "user.surname.title": "Фамилия",
+  "user.age.title": "Возраст",
+  "user.email.title": "Email",
+  "user.roles.title": "Роль",
+  "user.email.confirmed.title": "Email Подтвержден",
+
 
   "FOOTER_BLOCK": "Приложение для использования в Домашних условиях. See <a href='applications'><span>Аренда-Продажа квартир</span></a>. На проекте используется Angular 9 и Angular Material.",
   "ADDRESS": "ул. Зоологическая, 12/15"

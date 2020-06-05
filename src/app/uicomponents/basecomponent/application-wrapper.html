@@ -8,11 +8,10 @@
   <span class="app-lang-style dropdown mt-1">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <span class="flag-icon flag-icon-{{translationModule.getLangImgSuffix(translation.currentLang)}}"></span>
-      {{'LANG_TITLE' | translate}}
     </button>
-    <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item cursor-pointer" (click)="translation.use('en')"><span class="flag-icon flag-icon-us m-2"></span>English</a>
-      <a class="dropdown-item cursor-pointer" (click)="translation.use('ru')"><span class="flag-icon flag-icon-ru m-2"></span>Russian</a>
+    <span class="dropdown-menu dropdown-menu-lang" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item cursor-pointer" (click)="translation.use('en')"><span class="flag-icon flag-icon-us"></span></a>
+      <a class="dropdown-item cursor-pointer" (click)="translation.use('ru')"><span class="flag-icon flag-icon-ru"></span></a>
     </span>
   </span>
 
