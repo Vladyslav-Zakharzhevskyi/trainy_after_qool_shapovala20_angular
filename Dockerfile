@@ -1,6 +1,6 @@
 FROM node:12.13.0-alpine AS build
-WORKDIR /app
-COPY . /app
+WORKDIR /app/
+COPY . /app/
 RUN npm i
 ARG CONFIGURATION=docker-local
 RUN $(npm bin)/ng build --configuration=$CONFIGURATION
