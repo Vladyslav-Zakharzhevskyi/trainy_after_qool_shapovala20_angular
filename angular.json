@@ -31,11 +31,39 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "docker-aws": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.docker.aws.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "docker-local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.docker.local.ts"
                 }
               ],
               "optimization": true,
@@ -67,8 +95,11 @@
             "browserTarget": "angularclient:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "angularclient:build:production"
+            "docker-local": {
+              "browserTarget": "angularclient:build:docker-local"
+            },
+            "docker-aws": {
+              "browserTarget": "angularclient:build:docker-aws"
             }
           }
         },

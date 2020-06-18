@@ -17,8 +17,10 @@ export class ApiService {
   private static SKIP_INTERCEPTOR_HEADER = new HttpHeaders().set('InterceptorSkipHeader', 'SKIP_HEADER');
 
   constructor(private httpClient: HttpClient) {
+    console.log(`Name: ${environment.name}`);
+    console.log(`Description: ${environment.description}`);
+    console.log(`Is prod: ${environment.production}`);
     console.log(`Server url: ${environment.apiUrl}`);
-    console.log(`Is production: ${environment.production}`);
   }
 
 

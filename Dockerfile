@@ -1,11 +1,11 @@
-FROM node:14 AS node-builder
-
-COPY . /user/vlad/app/angular/
-WORKDIR /user/vlad/app/angular/
-
+FROM node:12.13.0-alpine AS build
+WORKDIR /app
+COPY . /app
 RUN npm i
-RUN $(npm bin)/ng build
+ARG CONFIGURATION=docker-local
+RUN $(npm bin)/ng build --configuration=$CONFIGURATION
 
-FROM nginx:1.19
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=node-builder /user/vlad/app/angular/dist/angularclient /usr/share/nginx/html/
+FROM nginx
+EXPOSE 3000
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist/angularclient /usr/share/nginx/html
