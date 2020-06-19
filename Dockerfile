@@ -12,6 +12,7 @@ COPY tsconfig*.json ./
 #TODO copy only src folder instead
 COPY . .
 ARG CONFIGURATION=docker-local
+ENV CONFIGURATION=$CONFIGURATION
 RUN $(npm bin)/ng build --configuration=$CONFIGURATION
 
 FROM nginx
