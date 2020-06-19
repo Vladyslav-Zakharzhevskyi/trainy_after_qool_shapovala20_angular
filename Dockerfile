@@ -13,6 +13,7 @@ COPY tsconfig*.json ./
 COPY . .
 ARG CONFIGURATION=docker-local
 ENV CONFIGURATION=$CONFIGURATION
+RUN echo CONFIGURATION=$CONFIGURATION
 RUN $(npm bin)/ng build --configuration=$CONFIGURATION
 
 FROM nginx
