@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Use custom hook to build image:"
+echo Configuration: $CONFIGURATION
+echo Image name: $IMAGE_NAME
+echo Docker file path: $DOCKERFILE_PATH
