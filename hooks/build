@@ -1,7 +1,11 @@
 #!/bin/bash
 
-if [ $DOCKER_TAG == "latest" ]
-then
-  docker build --build-arg CONFIGURATION=$CONFIGURATION -f $DOCKERFILE_PATH -t arkansas3000/invest-front-image:latest .
-else
-  docker build --build-arg CONFIGURATION=$CONFIGURATION -f $DOCKERFILE_PATH -t arkansas3000/invest-front-image:qa .
+#if [ $DOCKER_TAG == "latest" ]
+#then
+#  docker build --build-arg CONFIGURATION=$CONFIGURATION -f $DOCKERFILE_PATH -t arkansas3000/invest-front-image:latest .
+#else
+#  docker build --build-arg CONFIGURATION=$CONFIGURATION -f $DOCKERFILE_PATH -t arkansas3000/invest-front-image:qa .
+#fi
+
+
+docker build --build-arg CONFIGURATION=$CONFIGURATION -f $DOCKERFILE_PATH -t $IMAGE_NAME .
