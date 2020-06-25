@@ -11,7 +11,7 @@ COPY angular.json .
 COPY tsconfig*.json ./
 #TODO copy only src folder instead
 COPY . .
-ARG CONFIGURATION=docker-local
+ARG CONFIGURATION=local-docker
 ENV CONFIGURATION=$CONFIGURATION
 RUN echo CONFIGURATION=$CONFIGURATION
 RUN $(npm bin)/ng build --configuration=$CONFIGURATION

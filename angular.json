@@ -31,11 +31,11 @@
             "scripts": []
           },
           "configurations": {
-            "docker-aws": {
+            "aws-docker": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.docker.aws.ts"
+                  "with": "src/environments/environment.aws.docker.ts"
                 }
               ],
               "optimization": true,
@@ -59,11 +59,11 @@
                 }
               ]
             },
-            "docker-local": {
+            "local-docker": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.docker.local.ts"
+                  "with": "src/environments/environment.local.docker.ts"
                 }
               ],
               "optimization": true,
@@ -95,11 +95,11 @@
             "browserTarget": "angularclient:build"
           },
           "configurations": {
-            "docker-local": {
-              "browserTarget": "angularclient:build:docker-local"
+            "local-docker": {
+              "browserTarget": "angularclient:build:local-docker"
             },
-            "docker-aws": {
-              "browserTarget": "angularclient:build:docker-aws"
+            "aws-docker": {
+              "browserTarget": "angularclient:build:aws-docker"
             }
           }
         },
