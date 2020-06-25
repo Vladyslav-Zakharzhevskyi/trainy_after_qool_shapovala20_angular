@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start_with_local_env": "ng serve --port 5000",
-    "start_with_eb_env": "ng serve --prod --port 5000",
+    "local": "ng serve --port 5000",
+    "local docker": "ng serve --configuration=docker-local --port 5000",
+    "aws docker": "ng serve --configuration=docker-aws --port 5000",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
